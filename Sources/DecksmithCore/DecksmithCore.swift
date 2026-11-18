@@ -126,6 +126,35 @@ public struct SurfaceUpdate: Codable, Sendable, Equatable {
         self.revision = revision
         self.presentation = presentation
     }
+
+    public struct ActionBinding: Codable, Sendable, Equatable {
+        public let actionInstanceID: ActionInstanceID
+        public let trigger: InputTrigger
+        public let pageID: PageID
+        public init(actionInstanceID: ActionInstanceID, trigger: InputTrigger, pageID: PageID) {
+            self.actionInstanceID = actionInstanceID
+            self.trigger = trigger
+            self.pageID = pageID
+        }
+    }
+
+    public enum InputTrigger: Codable, Sendable, Equatable {
+        case key(ControlID)
+        case encoderRotation(ControlID)
+        case encoderPress(ControlID)
+        case touch(SurfaceID)
+    }
+
+    public struct PageDefinition: Codable, Sendable, Equatable {
+        public let id: PageID
+        public let name: String
+        public let bindings: [ControlID: ActionBinding]
+        public init(id: PageID, name: String, bindings: [ControlID: ActionBinding] = [:]) {
+            self.id = id
+            self.name = name
+            self.bindings = bindings
+        }
+    }
 }
 
 public struct SchemaEnvelope<Value: Codable & Sendable>: Codable, Sendable {
