@@ -1,0 +1,17 @@
+name: Hardware investigation
+description: Report a device, HID, USB, or firmware observation
+title: "[Hardware]: "
+labels: ["hardware"]
+body:
+  - type: textarea
+    id: device
+    attributes:
+      label: Device and firmware
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Observation and capture details
+    validations:
+      required: true

@@ -1,0 +1,10 @@
+name: Hardware integration
+on:
+  workflow_dispatch:
+jobs:
+  hardware:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Explain hardware runner requirement
+        run: echo "Run opt-in hardware tests only on a trusted runner with the intended device attached."
