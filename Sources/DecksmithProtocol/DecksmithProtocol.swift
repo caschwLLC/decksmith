@@ -18,6 +18,7 @@ public protocol DeviceProtocolCodec: Sendable {
 public enum ProtocolCodecError: Error, Equatable {
     case unsupportedSurface
     case invalidPayload
+    case unsupportedDevice(DeviceModel)
 }
 
 public struct StreamDeckPlusCodec: DeviceProtocolCodec {
@@ -37,7 +38,6 @@ public struct StreamDeckPlusCodec: DeviceProtocolCodec {
         default:
             return .protocolAnomaly(ProtocolAnomaly(reportID: report.reportID, payload: report.bytes, message: "Unknown Stream Deck + command"))
         }
-
     }
 
     public func encode(_ update: SurfaceUpdate) throws -> [RawHIDReport] {
@@ -45,15 +45,16 @@ public struct StreamDeckPlusCodec: DeviceProtocolCodec {
         case .blank, .text, .image, .composite:
             return [RawHIDReport(reportID: 0x02, bytes: Data([0x02]))]
         }
-
     }
 }
 
 public enum ProtocolRegistry {
-    public static func codec(for model: DeviceModel) -> any DeviceProtocolCodec {
+    public static func codec(for model: DeviceModel) throws -> any DeviceProtocolCodec {
         switch model {
-        case .streamDeckPlus, .unknown:
+        case .streamDeckPlus:
             return StreamDeckPlusCodec()
+        case .unknown:
+            throw ProtocolCodecError.unsupportedDevice(model)
         }
     }
 }
