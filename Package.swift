@@ -19,7 +19,7 @@ let package = Package(
         .library(name: "DecksmithUSB", targets: ["DecksmithUSB"])
     ],
     targets: [
-        .executableTarget(name: "DecksmithApp", dependencies: ["DecksmithRuntime", "DecksmithDevice"]),
+        .executableTarget(name: "DecksmithApp", dependencies: ["DecksmithRuntime", "DecksmithDevice"], exclude: ["Info.plist"]),
         .target(name: "DecksmithCore"),
         .target(name: "DecksmithProtocol", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithTransport", dependencies: ["DecksmithCore"]),

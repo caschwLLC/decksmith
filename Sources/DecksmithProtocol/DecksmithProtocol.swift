@@ -26,6 +26,7 @@ public struct StreamDeckPlusCodec: DeviceProtocolCodec {
         guard report.reportID == 0x01, let command = report.bytes.first else {
             return .protocolAnomaly(ProtocolAnomaly(reportID: report.reportID, payload: report.bytes, message: "Unsupported input report"))
         }
+
         switch command {
         case 0x00:
             let pressed = report.bytes.dropFirst().first == 1
@@ -36,12 +37,23 @@ public struct StreamDeckPlusCodec: DeviceProtocolCodec {
         default:
             return .protocolAnomaly(ProtocolAnomaly(reportID: report.reportID, payload: report.bytes, message: "Unknown Stream Deck + command"))
         }
+
     }
 
     public func encode(_ update: SurfaceUpdate) throws -> [RawHIDReport] {
         switch update.presentation {
         case .blank, .text, .image, .composite:
             return [RawHIDReport(reportID: 0x02, bytes: Data([0x02]))]
+        }
+
+    }
+}
+
+public enum ProtocolRegistry {
+    public static func codec(for model: DeviceModel) -> any DeviceProtocolCodec {
+        switch model {
+        case .streamDeckPlus, .unknown:
+            return StreamDeckPlusCodec()
         }
     }
 }
