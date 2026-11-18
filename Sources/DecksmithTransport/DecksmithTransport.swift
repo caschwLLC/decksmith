@@ -52,3 +52,39 @@ public actor InMemoryTransport: HIDTransport {
 public enum TransportError: Error, Equatable {
     case notOpen
 }
+
+public struct TransportMetrics: Sendable, Equatable {
+    public private(set) var receivedPackets = 0
+    public private(set) var droppedPackets = 0
+    public private(set) var writtenPackets = 0
+    public init() {}
+    public mutating func recordReceived() { receivedPackets += 1 }
+    public mutating func recordDropped() { droppedPackets += 1 }
+    public mutating func recordWritten() { writtenPackets += 1 }
+}
+
+public actor BoundedPacketBuffer {
+    private let capacity: Int
+    private var packets: [TransportPacket] = []
+    private var metrics = TransportMetrics()
+
+    public init(capacity: Int) {
+        self.capacity = max(1, capacity)
+    }
+
+    public func append(_ packet: TransportPacket) {
+        metrics.recordReceived()
+        if packets.count == capacity {
+            packets.removeFirst()
+            metrics.recordDropped()
+        }
+        packets.append(packet)
+    }
+
+    public func drain() -> [TransportPacket] {
+        defer { packets.removeAll(keepingCapacity: true) }
+        return packets
+    }
+
+    public func snapshotMetrics() -> TransportMetrics { metrics }
+}

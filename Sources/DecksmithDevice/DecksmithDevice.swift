@@ -18,6 +18,7 @@ public actor DeviceSession {
 
     public func connect() async throws { try await transport.open() }
     public func disconnect() async { await transport.close() }
+    public func currentTransportState() async -> TransportState { await transport.state() }
     public func submit(_ update: SurfaceUpdate) async throws {
         guard latestRevision[update.surfaceID, default: SurfaceRevision(0)] < update.revision else { return }
         latestRevision[update.surfaceID] = update.revision
