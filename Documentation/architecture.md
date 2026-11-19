@@ -14,6 +14,7 @@ Diagnostics are appended as JSON Lines to `~/Library/Application Support/Decksmi
 
 The native shell exposes an explicit control-mapping editor for all eight keys, four encoders, and four touchscreen segments. Each mapping stores the imported plugin UUID and action UUID, and imported Stream Deck profiles populate the same editor so assignments can be reviewed, reassigned, or cleared in Decksmith.
 Mappings and settings are persisted in the versioned JSON envelope at `~/Library/Application Support/Decksmith/assignments.json` and restored at launch.
+The SwiftUI editor keeps editable profiles and pages in the separate versioned envelope at `~/Library/Application Support/Decksmith/workspace.json`. Vendor imports are normalized into this Decksmith-owned state; vendor files are never mutated implicitly. The Profiles menu exposes explicit Decksmith backup JSON import/export and native `.streamDeckProfile` / `.streamDeckProfilesBackup` export/import paths.
 
 The native app discovers Elgato HID devices at launch, automatically connects to the first detected device, and allows selecting another discovered device. `InMemoryTransport` exists only as a unit-test double; the application path uses `IOKitHIDTransport` and does not report simulated hardware as connected.
 

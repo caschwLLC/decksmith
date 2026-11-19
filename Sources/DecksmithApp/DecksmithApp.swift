@@ -29,6 +29,9 @@ struct DecksmithApp: App {
             ContentView(model: model)
         }
         .windowResizability(.contentSize)
+        .commands {
+            DecksmithCommands(model: model)
+        }
     }
 
 }
@@ -63,6 +66,9 @@ final class DecksmithAppModel: ObservableObject {
 
     @Published var selectedControl = 0
     @Published var activePage = 0
+    @Published var selectedProfileID: String?
+    @Published var selectedPageID: String?
+    @Published private(set) var editorProfiles: [DecksmithEditorProfile] = []
     @Published private(set) var connected = false
     @Published private(set) var lastEvent = "Waiting for input"
     @Published private(set) var eventCount = 0
@@ -79,7 +85,9 @@ final class DecksmithAppModel: ObservableObject {
     @Published var isImportingPlugin = false
     @Published private(set) var diagnosticLogPath = FileDiagnosticLogger.defaultFileURL().path
 
-    let pages = ["Studio", "Meeting", "Focus"]
+    var pages: [String] {
+        currentProfile?.pages.map(\.name) ?? ["Main"]
+    }
     private let diagnostics = FileDiagnosticLogger(fileURL: FileDiagnosticLogger.defaultFileURL())
     private let pluginRuntime = PluginRuntime()
     private var transport: (any HIDTransport)?
@@ -99,6 +107,7 @@ final class DecksmithAppModel: ObservableObject {
     init() {
         refreshDevices()
         loadInstalledPlugins()
+        loadEditorWorkspace()
         loadAssignments()
         if let launchProfileURL {
             Task { @MainActor [weak self] in
@@ -106,6 +115,7 @@ final class DecksmithAppModel: ObservableObject {
                 self.log("plugin.profile.launch", "Injecting profile \(launchProfileURL.path)")
                 self.importProfile(from: launchProfileURL)
             }
+
         }
     }
 
@@ -246,6 +256,86 @@ final class DecksmithAppModel: ObservableObject {
         log("plugin.import.error", "\(error.localizedDescription)")
     }
 
+    func importDecksmithBackupFromPanel() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.json, .item]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = true
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            let workspace = try DecksmithWorkspaceCodec.decode(Data(contentsOf: url))
+            editorProfiles = workspace.profiles
+            selectedProfileID = workspace.selectedProfileID
+            selectedPageID = workspace.selectedPageID
+            normalizeEditorSelection()
+            syncAssignmentsFromCurrentPage()
+            persistEditorWorkspace()
+            pushAssignmentsToDevice()
+            lastEvent = "Imported Decksmith backup"
+        } catch {
+            lastEvent = "Decksmith backup import failed: \(error.localizedDescription)"
+            log("workspace.import.error", "\(error)")
+        }
+    }
+
+    func exportDecksmithBackupFromPanel() {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.json]
+        panel.nameFieldStringValue = "Decksmith.backup.json"
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            try DecksmithWorkspaceCodec.encode(
+                DecksmithEditorWorkspace(
+                    profiles: editorProfiles,
+                    selectedProfileID: selectedProfileID,
+                    selectedPageID: selectedPageID
+                )
+            ).write(to: url, options: .atomic)
+            lastEvent = "Exported Decksmith backup"
+        } catch {
+            lastEvent = "Decksmith backup export failed: \(error.localizedDescription)"
+            log("workspace.export.error", "\(error)")
+        }
+    }
+
+    func importVendorProfileFromPanel() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.item]
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = true
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        importProfile(from: url)
+    }
+
+    func exportVendorProfileFromPanel() {
+        guard let profile = currentProfile else { return }
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "\(profile.name).streamDeckProfile"
+        panel.canCreateDirectories = true
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            try NativeStreamDeckProfileCodec.export(profile: profile, to: url)
+            lastEvent = "Exported native Stream Deck profile"
+        } catch {
+            lastEvent = "Native profile export failed: \(error.localizedDescription)"
+            log("workspace.vendor.export.error", "\(error)")
+        }
+    }
+
+    func exportVendorBackupFromPanel() {
+        let panel = NSSavePanel()
+        panel.nameFieldStringValue = "Decksmith.streamDeckProfilesBackup"
+        panel.canCreateDirectories = true
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        do {
+            try NativeStreamDeckProfileCodec.exportBackup(profiles: editorProfiles, to: url)
+            lastEvent = "Exported native Stream Deck backup"
+        } catch {
+            lastEvent = "Native backup export failed: \(error.localizedDescription)"
+            log("workspace.vendor.backup.error", "\(error)")
+        }
+    }
+
     func importProfile(from url: URL) {
         do {
             let profiles = try StreamDeckPluginImporter.importProfiles(at: url)
@@ -315,6 +405,7 @@ final class DecksmithAppModel: ObservableObject {
                 )
             }
         }
+        upsertImportedEditorProfile(name: name, groups: profileGroups)
         activeImportedProfileName = name
         selectedPluginID = profileGroups.first?.pluginID
         selectedActionID = availableActions.first?.id
@@ -323,6 +414,44 @@ final class DecksmithAppModel: ObservableObject {
         log("plugin.profile.apply", "Applied profile=\(name) groups=\(profileGroups.count) assignments=\(assignments.count)")
         startExternalPluginsForAssignments()
         pushAssignmentsToDevice()
+    }
+
+    private func upsertImportedEditorProfile(name: String, groups: [PluginProfile]) {
+        let pages = groups.map { profile in
+            DecksmithEditorPage(
+                id: profile.id,
+                name: profile.name,
+                assignments: profile.assignments.reduce(into: [String: PluginAssignment]()) { result, imported in
+                    let surfaceID = surfaceID(for: imported)
+                    result[surfaceID] = PluginAssignment(
+                        surfaceID: surfaceID,
+                        pluginID: imported.pluginID ?? profile.pluginID,
+                        actionID: imported.actionID,
+                        displayName: importedDisplayName(imported.name, profileName: profile.name),
+                        settings: imported.settings,
+                        imagePath: imported.imagePath,
+                        stateTitle: imported.stateTitle
+                    )
+                }
+            )
+        }
+        let profileID = groups.first?.id ?? UUID().uuidString
+        let replacement = DecksmithEditorProfile(
+            id: profileID,
+            name: name,
+            pages: pages.isEmpty ? [DecksmithEditorPage(name: "Main", assignments: assignments)] : pages,
+            sourceProfileIDs: groups.map(\.id),
+            deviceModel: groups.first?.deviceModel
+        )
+        if let index = editorProfiles.firstIndex(where: { $0.id == profileID || $0.name == name }) {
+            editorProfiles[index] = replacement
+        } else {
+            editorProfiles.append(replacement)
+        }
+        selectedProfileID = replacement.id
+        selectedPageID = replacement.pages.first?.id
+        activePage = 0
+        persistEditorWorkspace()
     }
 
     private func importedDisplayName(_ name: String, profileName: String) -> String {
@@ -355,13 +484,22 @@ final class DecksmithAppModel: ObservableObject {
             actionID: action.id,
             displayName: "\(plugin.manifest.name):\(action.name)"
         )
+        syncCurrentPageFromAssignments()
+        persistAssignments()
         lastEvent = "Assigned \(action.name) to \(selectedSurfaceID)"
         log("plugin.assignment", "Assigned \(plugin.id.rawValue):\(action.id) to \(selectedSurfaceID)")
         renderSurfacePreview(for: selectedSurfaceID)
     }
 
+    func assign(pluginID: PluginID, actionID: String, to surfaceID: String) {
+        selectedPluginID = pluginID
+        selectedActionID = actionID
+        assignSelectedAction(to: surfaceID)
+    }
+
     func clearAssignment(for surfaceID: String) {
         assignments.removeValue(forKey: surfaceID)
+        syncCurrentPageFromAssignments()
         persistAssignments()
         lastEvent = "Cleared mapping for \(surfaceLabel(surfaceID))"
         log("plugin.assignment.clear", "Cleared mapping for \(surfaceID)")
@@ -404,6 +542,7 @@ final class DecksmithAppModel: ObservableObject {
             stateTitle: assignment.stateTitle
         )
         assignments[surfaceID] = assignment
+        syncCurrentPageFromAssignments()
         persistAssignments()
         lastEvent = "Saved configuration for \(surfaceLabel(surfaceID))"
         log("plugin.configuration", "Saved configuration for \(surfaceID)")
@@ -440,8 +579,20 @@ final class DecksmithAppModel: ObservableObject {
         assignments[selectedSurfaceID]?.displayName
     }
 
+    func assignment(for surfaceID: String) -> PluginAssignment? {
+        assignments[surfaceID]
+    }
+
     func assignedActionFor(_ surfaceID: String) -> String? {
         assignments[surfaceID]?.displayName
+    }
+
+    func compatibleActions(for plugin: PluginPackage, surfaceID: String) -> [PluginActionDefinition] {
+        plugin.actions.filter { $0.supportedControls.contains(controlKind(for: surfaceID)) }
+    }
+
+    func isSurfaceCompatible(_ action: PluginActionDefinition, surfaceID: String) -> Bool {
+        action.supportedControls.contains(controlKind(for: surfaceID))
     }
 
     var configurableSurfaces: [String] {
@@ -480,6 +631,10 @@ final class DecksmithAppModel: ObservableObject {
     private let assignmentStore = DiskVersionedStore<[String: PluginAssignment]>(
         fileURL: FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Decksmith/assignments.json")
+    )
+    private let workspaceStore = DiskVersionedStore<DecksmithEditorWorkspace>(
+        fileURL: FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Decksmith/workspace.json")
     )
 
     func refreshDevices() {
@@ -1291,6 +1446,7 @@ final class DecksmithAppModel: ObservableObject {
                     guard self.assignments.isEmpty else { return false }
                     let normalized = self.normalizeLoadedAssignments(envelope.value)
                     self.assignments = normalized
+                    self.syncCurrentPageFromAssignments()
                     self.lastEvent = "Loaded \(envelope.value.count) saved assignments"
                     return normalized != envelope.value
                 }
@@ -1364,7 +1520,151 @@ final class DecksmithAppModel: ObservableObject {
     }
 }
 
-private struct ContentView: View {
+extension DecksmithAppModel {
+   var currentProfile: DecksmithEditorProfile? {
+       editorProfiles.first { $0.id == selectedProfileID } ?? editorProfiles.first
+   }
+
+   var currentPage: DecksmithEditorPage? {
+       currentProfile?.pages.first { $0.id == selectedPageID }
+           ?? currentProfile?.pages[safe: activePage]
+           ?? currentProfile?.pages.first
+   }
+
+   var currentPageAssignments: [String: PluginAssignment] {
+       currentPage?.assignments ?? [:]
+   }
+
+   func loadEditorWorkspace() {
+       Task {
+           let loaded = try? await workspaceStore.load()?.value
+           await MainActor.run {
+               let workspace = loaded ?? DecksmithEditorWorkspace.initial
+               self.editorProfiles = workspace.profiles.isEmpty ? DecksmithEditorWorkspace.initial.profiles : workspace.profiles
+               self.selectedProfileID = workspace.selectedProfileID ?? self.editorProfiles.first?.id
+               self.selectedPageID = workspace.selectedPageID
+               self.normalizeEditorSelection()
+               self.syncAssignmentsFromCurrentPage()
+           }
+       }
+   }
+
+   func persistEditorWorkspace() {
+       let workspace = DecksmithEditorWorkspace(
+           profiles: editorProfiles,
+           selectedProfileID: selectedProfileID,
+           selectedPageID: selectedPageID
+       )
+       Task {
+           do {
+               try await workspaceStore.save(
+                   workspace,
+                   kind: DecksmithWorkspaceCodec.kind,
+                   schemaVersion: DecksmithEditorWorkspace.schemaVersion
+               )
+           } catch {
+               await MainActor.run {
+                   self.lastEvent = "Workspace save failed: \(error.localizedDescription)"
+                   self.log("workspace.save.error", "\(error)")
+               }
+           }
+       }
+   }
+
+   private func normalizeEditorSelection() {
+       guard !editorProfiles.isEmpty else { return }
+       if selectedProfileID == nil || !editorProfiles.contains(where: { $0.id == selectedProfileID }) {
+           selectedProfileID = editorProfiles[0].id
+       }
+       guard let profile = currentProfile, !profile.pages.isEmpty else {
+           selectedPageID = nil
+           activePage = 0
+           return
+       }
+       if let pageIndex = profile.pages.firstIndex(where: { $0.id == selectedPageID }) {
+           activePage = pageIndex
+       } else {
+           activePage = min(activePage, profile.pages.count - 1)
+           selectedPageID = profile.pages[activePage].id
+       }
+   }
+
+   func selectProfile(_ profileID: String) {
+       guard editorProfiles.contains(where: { $0.id == profileID }) else { return }
+       selectedProfileID = profileID
+       activePage = 0
+       selectedPageID = currentProfile?.pages.first?.id
+       syncAssignmentsFromCurrentPage()
+       persistEditorWorkspace()
+       pushAssignmentsToDevice()
+   }
+
+   func addProfile() {
+       let profile = DecksmithEditorProfile(name: "Profile \(editorProfiles.count + 1)", pages: [DecksmithEditorPage(name: "Main")])
+       editorProfiles.append(profile)
+       selectedProfileID = profile.id
+       selectedPageID = profile.pages[0].id
+       activePage = 0
+       assignments.removeAll()
+       persistEditorWorkspace()
+   }
+
+   func removeSelectedProfile() {
+       guard editorProfiles.count > 1, let selectedProfileID else { return }
+       editorProfiles.removeAll { $0.id == selectedProfileID }
+       self.selectedProfileID = editorProfiles.first?.id
+       activePage = 0
+       selectedPageID = editorProfiles.first?.pages.first?.id
+       syncAssignmentsFromCurrentPage()
+       persistEditorWorkspace()
+       pushAssignmentsToDevice()
+   }
+
+   func selectPage(_ index: Int) {
+       guard let profile = currentProfile, profile.pages.indices.contains(index) else { return }
+       activePage = index
+       selectedPageID = profile.pages[index].id
+       syncAssignmentsFromCurrentPage()
+       persistEditorWorkspace()
+       pushAssignmentsToDevice()
+   }
+
+   func addPage() {
+       guard let profileIndex = editorProfiles.firstIndex(where: { $0.id == selectedProfileID }) else { return }
+       let page = DecksmithEditorPage(name: "Page \(editorProfiles[profileIndex].pages.count + 1)")
+       editorProfiles[profileIndex].pages.append(page)
+       activePage = editorProfiles[profileIndex].pages.count - 1
+       selectedPageID = page.id
+       assignments.removeAll()
+       persistEditorWorkspace()
+   }
+
+   func removeActivePage() {
+       guard let profileIndex = editorProfiles.firstIndex(where: { $0.id == selectedProfileID }),
+             editorProfiles[profileIndex].pages.count > 1 else { return }
+       editorProfiles[profileIndex].pages.remove(at: activePage)
+       activePage = min(activePage, editorProfiles[profileIndex].pages.count - 1)
+       selectedPageID = editorProfiles[profileIndex].pages[activePage].id
+       syncAssignmentsFromCurrentPage()
+       persistEditorWorkspace()
+       pushAssignmentsToDevice()
+   }
+
+   private func syncAssignmentsFromCurrentPage() {
+       assignments = currentPageAssignments
+       selectedPluginID = plugins.first?.id
+       selectedActionID = availableActions.first?.id
+   }
+
+   private func syncCurrentPageFromAssignments() {
+       guard let profileIndex = editorProfiles.firstIndex(where: { $0.id == selectedProfileID }),
+             let pageIndex = editorProfiles[profileIndex].pages.firstIndex(where: { $0.id == selectedPageID }) else { return }
+       editorProfiles[profileIndex].pages[pageIndex].assignments = assignments
+       persistEditorWorkspace()
+   }
+}
+
+private struct LegacyContentView: View {
     @ObservedObject var model: DecksmithAppModel
 
     var body: some View {

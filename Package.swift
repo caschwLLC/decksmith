@@ -40,6 +40,7 @@ let package = Package(
         .testTarget(name: "DecksmithPluginSwiftTests", dependencies: ["DecksmithPluginSwift"]),
         .testTarget(name: "DecksmithPluginWebSocketTests", dependencies: ["DecksmithPluginWebSocket"]),
         .testTarget(name: "DecksmithPersistenceTests", dependencies: ["DecksmithPersistence"]),
+        .testTarget(name: "DecksmithAppTests", dependencies: ["DecksmithApp"]),
         .testTarget(name: "DecksmithObservabilityTests", dependencies: ["DecksmithObservability"]),
         .testTarget(name: "DecksmithUSBTests", dependencies: ["DecksmithUSB"])
     ]

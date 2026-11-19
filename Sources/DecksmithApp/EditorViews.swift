@@ -1,0 +1,431 @@
+import SwiftUI
+import AppKit
+import UniformTypeIdentifiers
+import DecksmithPluginSwift
+import DecksmithCore
+
+struct ContentView: View {
+    @ObservedObject var model: DecksmithAppModel
+    @State private var showBrowser = true
+
+    var body: some View {
+        NavigationSplitView {
+            ProfileSidebar(model: model)
+        } detail: {
+            HStack(spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        EditorHeader(model: model, showBrowser: $showBrowser)
+                        PageTabs(model: model)
+                        HardwareEditorPreview(model: model)
+                        AssignmentEditor(model: model)
+                    }
+                    .padding(24)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                if showBrowser {
+                    Divider()
+                    PluginActionBrowser(model: model)
+                        .frame(width: 300)
+                }
+            }
+            .background(Color(nsColor: .windowBackgroundColor))
+        }
+        .frame(minWidth: 1180, minHeight: 760)
+    }
+}
+
+private struct ProfileSidebar: View {
+    @ObservedObject var model: DecksmithAppModel
+
+    var body: some View {
+        List(selection: $model.selectedProfileID) {
+            Section {
+                ForEach(model.editorProfiles) { profile in
+                    let isSelected = profile.id == model.selectedProfileID
+                    let iconName = isSelected ? "person.crop.rectangle.fill" : "person.crop.rectangle"
+                    HStack(spacing: 8) {
+                        Image(systemName: iconName)
+                            .foregroundStyle(isSelected ? Color.accentColor : Color.secondary)
+                        Text(profile.name)
+                        Spacer()
+                        Text("\(profile.pages.count)")
+                            .font(.caption2.monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    .tag(Optional(profile.id))
+                    .contentShape(Rectangle())
+                    .onTapGesture { model.selectProfile(profile.id) }
+                }
+            } header: {
+                HStack {
+                    Text("Profiles")
+                    Spacer()
+                    Button { model.addProfile() } label: {
+                        Image(systemName: "plus")
+                    }
+                    .buttonStyle(.borderless)
+                    .help("Add profile")
+                }
+            }
+            Section("Workspace") {
+                Label("Devices", systemImage: "rectangle.connected.to.line.below")
+                Label("Diagnostics", systemImage: "waveform.path.ecg")
+                Label("Event history", systemImage: "list.bullet.rectangle")
+            }
+        }
+        .listStyle(.sidebar)
+        .navigationTitle("Decksmith")
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    model.removeSelectedProfile()
+                } label: {
+                    Image(systemName: "minus")
+                }
+                .disabled(model.editorProfiles.count <= 1)
+                .help("Remove profile")
+            }
+        }
+        .onChange(of: model.selectedProfileID) { _, value in
+            if let value { model.selectProfile(value) }
+        }
+    }
+}
+
+private struct EditorHeader: View {
+    @ObservedObject var model: DecksmithAppModel
+    @Binding var showBrowser: Bool
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 14) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(model.currentProfile?.name ?? "Profile")
+                    .font(.title2.weight(.semibold))
+                Text(model.currentProfile?.deviceModel ?? "Stream Deck+")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            Label(model.connected ? "Connected" : "Disconnected", systemImage: model.connected ? "checkmark.circle.fill" : "circle.slash")
+                .foregroundStyle(model.connected ? .green : .secondary)
+            Button {
+                showBrowser.toggle()
+            } label: {
+                Label("Actions", systemImage: showBrowser ? "sidebar.right" : "sidebar.right")
+            }
+            .buttonStyle(.bordered)
+            Button("Disconnect", action: model.disconnect)
+                .disabled(!model.connected)
+        }
+    }
+}
+
+private struct PageTabs: View {
+    @ObservedObject var model: DecksmithAppModel
+
+    var body: some View {
+        HStack(spacing: 8) {
+            HStack(spacing: 2) {
+                ForEach(Array(model.pages.enumerated()), id: \.offset) { index, page in
+                    Button {
+                        model.selectPage(index)
+                    } label: {
+                        Text(page)
+                            .font(.subheadline.weight(index == model.activePage ? .semibold : .regular))
+                            .foregroundStyle(index == model.activePage ? .primary : .secondary)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 7)
+                            .background(index == model.activePage ? Color.accentColor.opacity(0.18) : .clear)
+                            .clipShape(Capsule())
+                    }
+                    .buttonStyle(.plain)
+                }
+                Button { model.addPage() } label: {
+                    Image(systemName: "plus")
+                        .frame(width: 28, height: 28)
+                }
+                .buttonStyle(.plain)
+                if model.pages.count > 1 {
+                    Button { model.removeActivePage() } label: {
+                        Image(systemName: "minus")
+                            .frame(width: 28, height: 28)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(4)
+            .background(Color(nsColor: .controlBackgroundColor))
+            .clipShape(Capsule())
+            Spacer()
+            Text(model.lastEvent)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+        }
+    }
+}
+
+private struct HardwareEditorPreview: View {
+    @ObservedObject var model: DecksmithAppModel
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text("Stream Deck+")
+                    .font(.headline)
+                Spacer()
+                Text(model.selectedSurfaceID)
+                    .font(.caption.monospaced())
+                    .foregroundStyle(.secondary)
+            }
+            VStack(spacing: 12) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 8), spacing: 8) {
+                    ForEach(0..<8, id: \.self) { index in
+                        EditorSurfaceTile(model: model, surfaceID: "key.\(index)", label: "Key \(index + 1)")
+                    }
+                }
+                EditorTouchscreen(model: model)
+                HStack(spacing: 10) {
+                    ForEach(0..<4, id: \.self) { index in
+                        EditorSurfaceTile(model: model, surfaceID: "encoder.\(index)", label: "Dial \(index + 1)", isDial: true)
+                    }
+                }
+            }
+            .padding(14)
+            .background(Color(nsColor: .controlBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+        }
+    }
+}
+
+private struct EditorTouchscreen: View {
+    @ObservedObject var model: DecksmithAppModel
+
+    var body: some View {
+        HStack(spacing: 2) {
+            ForEach(0..<4, id: \.self) { index in
+                EditorSurfaceTile(model: model, surfaceID: "touch.\(index)", label: "Touch \(index + 1)")
+            }
+        }
+        .padding(4)
+        .background(Color.black.opacity(0.34))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+private struct EditorSurfaceTile: View {
+    @ObservedObject var model: DecksmithAppModel
+    let surfaceID: String
+    let label: String
+    var isDial = false
+
+    private var assignment: PluginAssignment? { model.assignment(for: surfaceID) }
+
+    var body: some View {
+        Button {
+            model.selectSurface(surfaceID)
+        } label: {
+            ZStack {
+                RoundedRectangle(cornerRadius: isDial ? 14 : 8)
+                    .fill(Color.black.opacity(assignment == nil ? 0.22 : 0.5))
+                if let path = assignment?.imagePath, let image = NSImage(contentsOfFile: path) {
+                    Image(nsImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(isDial ? 8 : 3)
+                } else {
+                    VStack(spacing: 4) {
+                        Image(systemName: assignment == nil ? "rectangle.dashed" : (isDial ? "dial.medium" : "square.grid.2x2"))
+                            .font(isDial ? .title2 : .headline)
+                        Text(assignment?.stateTitle ?? assignment?.displayName ?? label)
+                            .font(.caption2.weight(.medium))
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                    }
+                    .foregroundStyle(assignment == nil ? .secondary : .primary)
+                    .padding(4)
+                }
+                RoundedRectangle(cornerRadius: isDial ? 14 : 8)
+                    .stroke(model.selectedSurfaceID == surfaceID ? Color.accentColor : Color.white.opacity(0.12), lineWidth: model.selectedSurfaceID == surfaceID ? 2 : 1)
+            }
+            .aspectRatio(isDial ? 1 : 1, contentMode: .fit)
+        }
+        .buttonStyle(.plain)
+        .onDrop(of: [.text], isTargeted: nil) { providers in
+            guard let provider = providers.first else { return false }
+            provider.loadObject(ofClass: NSString.self) { object, _ in
+                guard let object = object as? NSString else { return }
+                let payload = object as String
+                guard let separator = payload.firstIndex(of: "|") else { return }
+                let pluginID = PluginID(rawValue: String(payload[..<separator]))
+                let actionID = String(payload[payload.index(after: separator)...])
+                DispatchQueue.main.async {
+                    model.assign(pluginID: pluginID, actionID: actionID, to: surfaceID)
+                }
+            }
+            return true
+        }
+    }
+}
+
+private struct AssignmentEditor: View {
+    @ObservedObject var model: DecksmithAppModel
+    @State private var configurationText = "{}"
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Assignment")
+                    .font(.headline)
+                Spacer()
+                Text(model.surfaceLabel(model.selectedSurfaceID))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            if let assignment = model.assignment(for: model.selectedSurfaceID) {
+                HStack(spacing: 12) {
+                    Image(systemName: "puzzlepiece.extension")
+                        .font(.title2)
+                        .foregroundStyle(Color.accentColor)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text(assignment.displayName)
+                            .font(.subheadline.weight(.semibold))
+                        Text("\(assignment.pluginID.rawValue) / \(assignment.actionID)")
+                            .font(.caption.monospaced())
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Clear") { model.clearAssignment(for: model.selectedSurfaceID) }
+                        .buttonStyle(.borderless)
+                }
+                TextEditor(text: $configurationText)
+                    .font(.caption.monospaced())
+                    .frame(minHeight: 90)
+                    .padding(6)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.secondary.opacity(0.25)))
+                HStack {
+                    Text("Plugin settings are passed through as JSON.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Save") {
+                        model.saveConfiguration(configurationText, for: model.selectedSurfaceID)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            } else {
+                Text("Drop a compatible action here, or choose one from the action browser.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+        }
+        .padding(16)
+        .background(Color(nsColor: .controlBackgroundColor).opacity(0.72))
+        .clipShape(RoundedRectangle(cornerRadius: 14))
+        .onAppear { configurationText = model.configurationText(for: model.selectedSurfaceID) }
+        .onChange(of: model.selectedSurfaceID) { _, surfaceID in
+            configurationText = model.configurationText(for: surfaceID)
+        }
+    }
+}
+
+private struct PluginActionBrowser: View {
+    @ObservedObject var model: DecksmithAppModel
+    @State private var query = ""
+    @State private var tab = "Keys"
+    @State private var expanded: Set<PluginID> = []
+
+    private var control: String {
+        tab == "Dials" ? "encoder" : "key"
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Installed actions")
+                .font(.headline)
+            TextField("Search actions", text: $query)
+                .textFieldStyle(.roundedBorder)
+            Picker("Action type", selection: $tab) {
+                Text("Keys").tag("Keys")
+                Text("Dials").tag("Dials")
+                Text("Plugins").tag("Plugins")
+            }
+            .pickerStyle(.segmented)
+            if tab == "Plugins" {
+                ContentUnavailableView("Plugin tools", systemImage: "puzzlepiece.extension", description: Text("Plugin management will appear here."))
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(model.plugins) { plugin in
+                            let actions = model.compatibleActions(for: plugin, surfaceID: control == "encoder" ? "encoder.0" : "key.0")
+                                .filter { query.isEmpty || $0.name.localizedCaseInsensitiveContains(query) || plugin.manifest.name.localizedCaseInsensitiveContains(query) }
+                            if !actions.isEmpty {
+                                DisclosureGroup(isExpanded: Binding(
+                                    get: { expanded.contains(plugin.id) },
+                                    set: { isExpanded in
+                                        if isExpanded { expanded.insert(plugin.id) } else { expanded.remove(plugin.id) }
+                                    }
+                                )) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        ForEach(actions) { action in
+                                            ActionRow(plugin: plugin, action: action)
+                                        }
+                                    }
+                                    .padding(.leading, 8)
+                                } label: {
+                                    Label(plugin.manifest.name, systemImage: "puzzlepiece.extension")
+                                        .font(.subheadline.weight(.semibold))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Spacer()
+        }
+        .padding(16)
+        .background(Color(nsColor: .controlBackgroundColor).opacity(0.82))
+    }
+}
+
+private struct ActionRow: View {
+    let plugin: PluginPackage
+    let action: PluginActionDefinition
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "square.and.arrow.down")
+                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(action.name)
+                    .font(.caption.weight(.medium))
+                Text(action.summary)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+            }
+            Spacer()
+        }
+        .padding(.vertical, 5)
+        .contentShape(Rectangle())
+        .onDrag {
+            NSItemProvider(object: "\(plugin.id.rawValue)|\(action.id)" as NSString)
+        }
+    }
+}
+
+struct DecksmithCommands: Commands {
+    @ObservedObject var model: DecksmithAppModel
+
+    var body: some Commands {
+        CommandMenu("Profiles") {
+            Button("Import Decksmith Backup…", action: model.importDecksmithBackupFromPanel)
+            Button("Export Decksmith Backup…", action: model.exportDecksmithBackupFromPanel)
+            Divider()
+            Button("Import Stream Deck Profile or Backup…", action: model.importVendorProfileFromPanel)
+            Button("Export Native Stream Deck Profile…", action: model.exportVendorProfileFromPanel)
+            Button("Export Native Stream Deck Backup…", action: model.exportVendorBackupFromPanel)
+        }
+    }
+}
