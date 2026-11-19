@@ -10,8 +10,10 @@ final class DecksmithDeviceTests: XCTestCase {
         try await session.connect()
         let update = SurfaceUpdate(surfaceID: SurfaceID(rawValue: "key.0"), revision: SurfaceRevision(1), presentation: .text(title: "A", subtitle: nil))
         try await session.submit(update)
+        let firstWriteCount = await transport.recordedWrites().count
         try await session.submit(update)
         let writes = await transport.recordedWrites()
-        XCTAssertEqual(writes.count, 1)
+        XCTAssertGreaterThan(firstWriteCount, 0)
+        XCTAssertEqual(writes.count, firstWriteCount)
     }
 }

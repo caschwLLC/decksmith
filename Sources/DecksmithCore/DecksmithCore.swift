@@ -81,6 +81,57 @@ public enum InputEvent: Codable, Sendable {
     case protocolAnomaly(ProtocolAnomaly)
 }
 
+public struct PageDefinition: Codable, Sendable, Equatable, Identifiable {
+    public let id: PageID
+    public let name: String
+    public let bindings: [ControlID: ActionBinding]
+
+    public init(id: PageID, name: String, bindings: [ControlID: ActionBinding] = [:]) {
+        self.id = id
+        self.name = name
+        self.bindings = bindings
+    }
+}
+
+public struct ActionBinding: Codable, Sendable, Equatable {
+    public let actionInstanceID: ActionInstanceID
+    public let trigger: InputTrigger
+    public let pageID: PageID
+
+    public init(actionInstanceID: ActionInstanceID, trigger: InputTrigger, pageID: PageID) {
+        self.actionInstanceID = actionInstanceID
+        self.trigger = trigger
+        self.pageID = pageID
+    }
+}
+
+public enum InputTrigger: Codable, Sendable, Equatable {
+    case key(ControlID)
+    case encoderRotation(ControlID)
+    case encoderPress(ControlID)
+    case touch(SurfaceID)
+}
+
+public enum NavigationCommand: Codable, Sendable, Equatable {
+    case select(PageID)
+    case next
+    case previous
+}
+
+public struct IntegrationDescriptor: Codable, Sendable, Equatable, Identifiable {
+    public let id: PluginID
+    public let name: String
+    public let version: String
+    public let capabilities: Set<String>
+
+    public init(id: PluginID, name: String, version: String = "1.0", capabilities: Set<String> = []) {
+        self.id = id
+        self.name = name
+        self.version = version
+        self.capabilities = capabilities
+    }
+}
+
 public enum DeviceLifecycleEvent: String, Codable, Sendable {
     case discovered
     case connected
@@ -115,6 +166,7 @@ public enum SurfacePresentation: Codable, Sendable, Equatable {
 public enum RenderLayer: Codable, Sendable, Equatable {
     case image(assetID: String, x: Double, y: Double, width: Double, height: Double)
     case text(value: String, x: Double, y: Double, width: Double, height: Double)
+    case progress(value: Double, x: Double, y: Double, width: Double, height: Double)
 }
 
 public struct SurfaceUpdate: Codable, Sendable, Equatable {

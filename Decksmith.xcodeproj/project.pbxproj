@@ -1,48 +1,2913 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	objectVersion = 56;
+	classes = {
+	};
+	objectVersion = 77;
 	objects = {
-		000000000000000000000001 /* Project object */ = {
-			isa = PBXProject;
-			attributes = { LastUpgradeCheck = 1600; };
-			buildConfigurationList = 000000000000000000000010 /* Project configuration list */;
-			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (en, Base);
-			mainGroup = 000000000000000000000002;
-			productRefGroup = 000000000000000000000003;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (000000000000000000000004);
+
+/* Begin PBXBuildFile section */
+		0285346578C02BB3E945BF38 /* libDecksmithRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC476304E1BD641409B2B86 /* libDecksmithRendering.a */; };
+		16A1CE00C7B484800C5C0348 /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FE6573CDEC919516B6B8F0 /* Routing.swift */; };
+		18A5B727BD32808B3E555FDD /* libDecksmithRuntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5CA84BDE3C4F8B60C1296A /* libDecksmithRuntime.a */; };
+		1D6C2EBBE23B1C130EABAF57 /* DecksmithPersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7AEF05454A1AB15A6E8130 /* DecksmithPersistenceTests.swift */; };
+		293B4C288E5BCBE0A7C07D92 /* libDecksmithPluginSwift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D0B4331FB77EF220660E4B /* libDecksmithPluginSwift.a */; };
+		29F479239958335411F32552 /* DecksmithUSBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92FA814CAC3B3573485C5FA /* DecksmithUSBTests.swift */; };
+		2A88CA5B4D301CBCF2FC8B3E /* libDecksmithPluginWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E70C1DF017778E37902A5C3C /* libDecksmithPluginWebSocket.a */; };
+		3964CDA27D0DE4001E4D84D6 /* DecksmithPluginSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B912799CA178521C9A2AA6C8 /* DecksmithPluginSwiftTests.swift */; };
+		40727740D00ADCE6C9BF2710 /* DecksmithProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DA24191942BC80DD365FB /* DecksmithProtocolTests.swift */; };
+		4C0D6ABD6469534C8B86770F /* DecksmithDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4FBD7874A0ED4A85C5B5B9 /* DecksmithDevice.swift */; };
+		4D1A0E36BA91D1AA9477E7AE /* DecksmithCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCAC1F6B6499575C6214FEC /* DecksmithCore.swift */; };
+		5379FAF9BB07253156821DC4 /* libDecksmithDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC29F72F601D5E8446B1B75 /* libDecksmithDevice.a */; };
+		57814147A3D10234DE0E9D26 /* BoundedPacketBufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52366689871D925E27A4CA15 /* BoundedPacketBufferTests.swift */; };
+		5FF24E0D34623F9D6A952E5E /* libDecksmithDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BC29F72F601D5E8446B1B75 /* libDecksmithDevice.a */; };
+		630B0994C760A788CDE3F0A0 /* DecksmithPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F11E695ED85A5B8FA7CDA2 /* DecksmithPersistence.swift */; };
+		653FE77261A0F8A1313A58A5 /* libDecksmithTransport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0E790C8C006299F073ED56 /* libDecksmithTransport.a */; };
+		6A928A44CDF200772B15598A /* libDecksmithRendering.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FC476304E1BD641409B2B86 /* libDecksmithRendering.a */; };
+		6DEAFF02FCA29B37966E82CD /* libDecksmithTransport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B0E790C8C006299F073ED56 /* libDecksmithTransport.a */; };
+		6E01708C3AE29EBB6FEBE1CA /* DecksmithUSB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128658876DADA1656E12FE81 /* DecksmithUSB.swift */; };
+		748ABA413D86ACC0D0994467 /* libDecksmithPersistence.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF7A6049B6C5D1FAF1B0E8D /* libDecksmithPersistence.a */; };
+		7535DFC800B43A751E48F269 /* DecksmithDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C4B7B7DCA0B10A3831CE0F /* DecksmithDeviceTests.swift */; };
+		7B8FCBAB3681090113C37A75 /* DecksmithTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A15F191F5C3A05E9EA5690 /* DecksmithTransportTests.swift */; };
+		7CDF0BA16F2D6DE895ECF36E /* DecksmithTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6E090D90EF385128CA70DC /* DecksmithTransport.swift */; };
+		7D1E902EF885CE3739E65146 /* libDecksmithUSB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F3E11A770E61A439B8298C /* libDecksmithUSB.a */; };
+		7ED3915B581E0CE374D8085C /* libDecksmithObservability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C905422946022A30A0090B /* libDecksmithObservability.a */; };
+		81DB0A91A622C6EFCC76127A /* libDecksmithCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2426DF0D235011B69DE3E70 /* libDecksmithCore.a */; };
+		907BD0097C91DCAD430C254E /* DecksmithRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC07BF807CCD5008778129DC /* DecksmithRenderingTests.swift */; };
+		91E52BE4141C32410C106325 /* libDecksmithRuntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF5CA84BDE3C4F8B60C1296A /* libDecksmithRuntime.a */; };
+		96031F176480F8A85597464E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6686D55C80701A744AA4682 /* IOKit.framework */; };
+		9D1DBBF0C46379D8D177E616 /* libDecksmithCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2426DF0D235011B69DE3E70 /* libDecksmithCore.a */; };
+		A37BE62B3BDAB5F717296E1F /* DecksmithPluginWebSocketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275749EF52EA68D2B8D5159F /* DecksmithPluginWebSocketTests.swift */; };
+		A79A5CF472069CC2AC95FEAF /* DecksmithRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D2F96E029DAC3455883A988 /* DecksmithRendering.swift */; };
+		AB968DDC348696FDC4266C7E /* DecksmithObservabilityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FDB810826DAC19A7A3FC1 /* DecksmithObservabilityTests.swift */; };
+		B7DD12D51CDF1E9104EE01D7 /* DecksmithApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A01832A25A025D648C64D47 /* DecksmithApp.swift */; };
+		BAF44305D587D9DF9CF2E38B /* DecksmithRuntimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDBDA481649147405F391F8 /* DecksmithRuntimeTests.swift */; };
+		BE83090D8F4DB0893F0AAA49 /* libDecksmithPersistence.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF7A6049B6C5D1FAF1B0E8D /* libDecksmithPersistence.a */; };
+		BF13F6F96CECAF5DB1522042 /* DecksmithPluginWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB1814035EFDEFA049C8138 /* DecksmithPluginWebSocket.swift */; };
+		BF9B5D08A56E8E3605437DE5 /* libDecksmithProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E534893764503F3B6CE16586 /* libDecksmithProtocol.a */; };
+		CF35B3D8AAA3FDF95DCA3335 /* libDecksmithPluginWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E70C1DF017778E37902A5C3C /* libDecksmithPluginWebSocket.a */; };
+		D08CFDF7424018CA76175FE2 /* DecksmithCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75FE94C2463A646FA00D2D8 /* DecksmithCoreTests.swift */; };
+		D99EBC2D57B7CDA44D665CEA /* ProtocolRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478F4073D0151685FA04FA0B /* ProtocolRegistryTests.swift */; };
+		DC0401095ACC848CAD497831 /* libDecksmithUSB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F3E11A770E61A439B8298C /* libDecksmithUSB.a */; };
+		E1A9E7E42868DBCD67CEDEB2 /* RealHardwareIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DEA297BAECC0F78A367582 /* RealHardwareIntegrationTests.swift */; };
+		EEB7624D0E90F067767E67D3 /* DecksmithProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5877A0803FC16B34E296FC /* DecksmithProtocol.swift */; };
+		F2830727D5CD263A9A3AFF91 /* libDecksmithPluginSwift.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 47D0B4331FB77EF220660E4B /* libDecksmithPluginSwift.a */; };
+		F4A5522214BB0BA4CC1D5A33 /* libDecksmithProtocol.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E534893764503F3B6CE16586 /* libDecksmithProtocol.a */; };
+		F535D69525BEF0EC82B8DD72 /* DecksmithObservability.swift in Sources */ = {isa = PBXBuildFile; fileRef = B325479A9D1FEDBFB5A5EE93 /* DecksmithObservability.swift */; };
+		F60C9E1130BE7E4DFE1333BF /* DecksmithPluginSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A3A746D5D796FA594B9C4B /* DecksmithPluginSwift.swift */; };
+		F657BE38A63B5CB6F7983768 /* libDecksmithObservability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C905422946022A30A0090B /* libDecksmithObservability.a */; };
+		F980179AA0362A3AF7A62BB7 /* DecksmithRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A7B68BBF4862A9A624C3EA /* DecksmithRuntime.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		07C826BCF0C1BE3FF4FBC567 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA6236CCF10155EED7C420C4;
+			remoteInfo = DecksmithRendering;
 		};
-		000000000000000000000002 = { isa = PBXGroup; children = (000000000000000000000005, 000000000000000000000006, 000000000000000000000016); sourceTree = "<group>"; };
-		000000000000000000000003 = { isa = PBXGroup; children = (000000000000000000000007); name = Products; sourceTree = "<group>"; };
-		000000000000000000000004 = {
+		21FBAC16FDFB353CD75A4E72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3977258A319D66C8A000ABD8;
+			remoteInfo = DecksmithPluginSwift;
+		};
+		237FE4FD002B46CD030CD887 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E227A0EF1E5D651C947D9A99;
+			remoteInfo = DecksmithProtocol;
+		};
+		25C7AD3363E32F8EED90F069 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4991E8DDB502EBC60265F7FE;
+			remoteInfo = DecksmithObservability;
+		};
+		2AAE35C8988697BCD1AC8294 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A92AC186C00E8A8C1F40823;
+			remoteInfo = DecksmithPluginWebSocket;
+		};
+		35A7B4DD210F03E7152CB0E7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		36FE2BAA52A0281C44F3C29D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76A4C5EDFBBB25DBD4E18905;
+			remoteInfo = DecksmithUSB;
+		};
+		4A5747EC78960B2AD7BA064D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		5313CCE227FA876492E2F84B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		5AE08138DE3798E69D731D6B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEEB316B9E2423A196201D09;
+			remoteInfo = DecksmithTransport;
+		};
+		6089C5585CDD5D3C69F7AE90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4991E8DDB502EBC60265F7FE;
+			remoteInfo = DecksmithObservability;
+		};
+		636828118002E2E6D9FDE302 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CEBF825613CB120EE99C085;
+			remoteInfo = DecksmithRuntime;
+		};
+		6EC2E9697F78CCD473AA785E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		73E0CC1A682E5549F2219CAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEEB316B9E2423A196201D09;
+			remoteInfo = DecksmithTransport;
+		};
+		784F170F5824818C16119792 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E227A0EF1E5D651C947D9A99;
+			remoteInfo = DecksmithProtocol;
+		};
+		7AC17D0E1067B0F24A075EBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76A4C5EDFBBB25DBD4E18905;
+			remoteInfo = DecksmithUSB;
+		};
+		7DD2108CAA545767730614F0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		7F25D08008D8E40784837913 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 578BBC050CBD7D4A32814A8A;
+			remoteInfo = DecksmithDevice;
+		};
+		8236214008F2BEEAFCCE8C7A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA6236CCF10155EED7C420C4;
+			remoteInfo = DecksmithRendering;
+		};
+		826CFC08F8C40BBE2FE10585 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A92AC186C00E8A8C1F40823;
+			remoteInfo = DecksmithPluginWebSocket;
+		};
+		82E0C69FBF77DCA65D743AED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		8A4C359568C502C72C0A27C9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		8E6AD68E5D79973FC0DFEF7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3977258A319D66C8A000ABD8;
+			remoteInfo = DecksmithPluginSwift;
+		};
+		94FBA8FAA86BA4EDEDD1395F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		95BEFA53C5ACA62DF388CA98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DC02C494C6BEB2B853DF563;
+			remoteInfo = DecksmithPersistence;
+		};
+		A6CC24D41E7F2E41A6C5D8B1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		B7AEE8B99EC6177A14783DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A92AC186C00E8A8C1F40823;
+			remoteInfo = DecksmithPluginWebSocket;
+		};
+		BF7FDD62CE66D45629A00D73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA6236CCF10155EED7C420C4;
+			remoteInfo = DecksmithRendering;
+		};
+		C96BA6D71CB5BF2D7A621559 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA6236CCF10155EED7C420C4;
+			remoteInfo = DecksmithRendering;
+		};
+		CB00173A093BD3530DD00C66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E227A0EF1E5D651C947D9A99;
+			remoteInfo = DecksmithProtocol;
+		};
+		D157F166026CCEA9A66483F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEEB316B9E2423A196201D09;
+			remoteInfo = DecksmithTransport;
+		};
+		D5E40721595C31C76CE46546 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		D884EFBAFE9E7FAF64E4D265 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 578BBC050CBD7D4A32814A8A;
+			remoteInfo = DecksmithDevice;
+		};
+		DA6EC95B4975C3B7232F5A26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3977258A319D66C8A000ABD8;
+			remoteInfo = DecksmithPluginSwift;
+		};
+		E1F1D5BE7BF5E047EE74E106 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DC02C494C6BEB2B853DF563;
+			remoteInfo = DecksmithPersistence;
+		};
+		F3AF75445DE7A7F6BE034C1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+		F883983FFAA790B89AD9FAC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CEBF825613CB120EE99C085;
+			remoteInfo = DecksmithRuntime;
+		};
+		FA976A68D80800EA8D58E709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8A5B0C1B23F2513C8A5B97D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D493177E214700D0AB281AFC;
+			remoteInfo = DecksmithCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		009CB70AC2C791A7EEC151CF /* DecksmithTransportTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithTransportTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		02BCAD5D31A69C0B4A72C87A /* DecksmithProtocolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithProtocolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		03DEA297BAECC0F78A367582 /* RealHardwareIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealHardwareIntegrationTests.swift; sourceTree = "<group>"; };
+		06A15F191F5C3A05E9EA5690 /* DecksmithTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithTransportTests.swift; sourceTree = "<group>"; };
+		0A69BA793420EB8125313713 /* DecksmithRuntimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithRuntimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		128658876DADA1656E12FE81 /* DecksmithUSB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithUSB.swift; sourceTree = "<group>"; };
+		1B5877A0803FC16B34E296FC /* DecksmithProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithProtocol.swift; sourceTree = "<group>"; };
+		1DF7A6049B6C5D1FAF1B0E8D /* libDecksmithPersistence.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithPersistence.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FC476304E1BD641409B2B86 /* libDecksmithRendering.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithRendering.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		273BEA35445708934875B95B /* DecksmithUSBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithUSBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		275749EF52EA68D2B8D5159F /* DecksmithPluginWebSocketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPluginWebSocketTests.swift; sourceTree = "<group>"; };
+		29A7B68BBF4862A9A624C3EA /* DecksmithRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithRuntime.swift; sourceTree = "<group>"; };
+		2B4FBD7874A0ED4A85C5B5B9 /* DecksmithDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithDevice.swift; sourceTree = "<group>"; };
+		2D2F96E029DAC3455883A988 /* DecksmithRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithRendering.swift; sourceTree = "<group>"; };
+		2FCDBEC03E0EBECC160F0F48 /* DecksmithPersistenceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithPersistenceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30C0D4EF73EBE14B8526588D /* DecksmithObservabilityTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithObservabilityTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A01832A25A025D648C64D47 /* DecksmithApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithApp.swift; sourceTree = "<group>"; };
+		3C7AEF05454A1AB15A6E8130 /* DecksmithPersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPersistenceTests.swift; sourceTree = "<group>"; };
+		3FCAC1F6B6499575C6214FEC /* DecksmithCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithCore.swift; sourceTree = "<group>"; };
+		41FE6573CDEC919516B6B8F0 /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
+		43F3E11A770E61A439B8298C /* libDecksmithUSB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithUSB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		478F4073D0151685FA04FA0B /* ProtocolRegistryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolRegistryTests.swift; sourceTree = "<group>"; };
+		47D0B4331FB77EF220660E4B /* libDecksmithPluginSwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithPluginSwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B0E790C8C006299F073ED56 /* libDecksmithTransport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithTransport.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		52366689871D925E27A4CA15 /* BoundedPacketBufferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedPacketBufferTests.swift; sourceTree = "<group>"; };
+		5638B56D613C9415AB24C0B4 /* DecksmithPluginSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithPluginSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79F11E695ED85A5B8FA7CDA2 /* DecksmithPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPersistence.swift; sourceTree = "<group>"; };
+		8F3DA24191942BC80DD365FB /* DecksmithProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithProtocolTests.swift; sourceTree = "<group>"; };
+		916FDB810826DAC19A7A3FC1 /* DecksmithObservabilityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithObservabilityTests.swift; sourceTree = "<group>"; };
+		97C905422946022A30A0090B /* libDecksmithObservability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithObservability.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9BC29F72F601D5E8446B1B75 /* libDecksmithDevice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithDevice.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C6E090D90EF385128CA70DC /* DecksmithTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithTransport.swift; sourceTree = "<group>"; };
+		9DDBDA481649147405F391F8 /* DecksmithRuntimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithRuntimeTests.swift; sourceTree = "<group>"; };
+		A8018FDC703E774AAB3B3DC8 /* Decksmith.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decksmith.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFF4AA2B6831EA7AF4D1F71B /* DecksmithDeviceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithDeviceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B05B17CFD1323B221DA487F2 /* DecksmithRenderingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithRenderingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B325479A9D1FEDBFB5A5EE93 /* DecksmithObservability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithObservability.swift; sourceTree = "<group>"; };
+		B75FE94C2463A646FA00D2D8 /* DecksmithCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithCoreTests.swift; sourceTree = "<group>"; };
+		B912799CA178521C9A2AA6C8 /* DecksmithPluginSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPluginSwiftTests.swift; sourceTree = "<group>"; };
+		C7C4B7B7DCA0B10A3831CE0F /* DecksmithDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithDeviceTests.swift; sourceTree = "<group>"; };
+		CAB1814035EFDEFA049C8138 /* DecksmithPluginWebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPluginWebSocket.swift; sourceTree = "<group>"; };
+		CB4B16047874F16CA702E540 /* DecksmithCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2426DF0D235011B69DE3E70 /* libDecksmithCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E328C7116DABDA6D65FF68C1 /* DecksmithPluginWebSocketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DecksmithPluginWebSocketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E534893764503F3B6CE16586 /* libDecksmithProtocol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithProtocol.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6686D55C80701A744AA4682 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		E70C1DF017778E37902A5C3C /* libDecksmithPluginWebSocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithPluginWebSocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E92FA814CAC3B3573485C5FA /* DecksmithUSBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithUSBTests.swift; sourceTree = "<group>"; };
+		EC07BF807CCD5008778129DC /* DecksmithRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithRenderingTests.swift; sourceTree = "<group>"; };
+		EF5CA84BDE3C4F8B60C1296A /* libDecksmithRuntime.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDecksmithRuntime.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2A3A746D5D796FA594B9C4B /* DecksmithPluginSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksmithPluginSwift.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3C4B526CA2DC9B6678A46643 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				81DB0A91A622C6EFCC76127A /* libDecksmithCore.a in Frameworks */,
+				F4A5522214BB0BA4CC1D5A33 /* libDecksmithProtocol.a in Frameworks */,
+				6DEAFF02FCA29B37966E82CD /* libDecksmithTransport.a in Frameworks */,
+				6A928A44CDF200772B15598A /* libDecksmithRendering.a in Frameworks */,
+				91E52BE4141C32410C106325 /* libDecksmithRuntime.a in Frameworks */,
+				5FF24E0D34623F9D6A952E5E /* libDecksmithDevice.a in Frameworks */,
+				293B4C288E5BCBE0A7C07D92 /* libDecksmithPluginSwift.a in Frameworks */,
+				CF35B3D8AAA3FDF95DCA3335 /* libDecksmithPluginWebSocket.a in Frameworks */,
+				748ABA413D86ACC0D0994467 /* libDecksmithPersistence.a in Frameworks */,
+				7ED3915B581E0CE374D8085C /* libDecksmithObservability.a in Frameworks */,
+				7D1E902EF885CE3739E65146 /* libDecksmithUSB.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D6AE3382A3FB17582EE290C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D1DBBF0C46379D8D177E616 /* libDecksmithCore.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E6E9A8E3BA59F87594819C5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC0401095ACC848CAD497831 /* libDecksmithUSB.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60E22D00DA9E9F9A590D1080 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2830727D5CD263A9A3AFF91 /* libDecksmithPluginSwift.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		61F6C6FC6F9DD14292D30771 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A88CA5B4D301CBCF2FC8B3E /* libDecksmithPluginWebSocket.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6EBBD7F845A33FEE1FC201DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F657BE38A63B5CB6F7983768 /* libDecksmithObservability.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AAD7BC94317311711F54413 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				653FE77261A0F8A1313A58A5 /* libDecksmithTransport.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7F2980D06258A11A8EE4DD92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0285346578C02BB3E945BF38 /* libDecksmithRendering.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9569310CD993FDB37CE43AB2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE83090D8F4DB0893F0AAA49 /* libDecksmithPersistence.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FE09E8C8630EE66F1C1A6BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				96031F176480F8A85597464E /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A2A2FA4D0FDD06C2B37EF55C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF9B5D08A56E8E3605437DE5 /* libDecksmithProtocol.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBF22A4FED575E942C71E211 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18A5B727BD32808B3E555FDD /* libDecksmithRuntime.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF186F09E5E6936D695D8E3B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5379FAF9BB07253156821DC4 /* libDecksmithDevice.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0A50A149C75C8C4AADAC29F1 /* DecksmithDeviceTests */ = {
+			isa = PBXGroup;
+			children = (
+				C7C4B7B7DCA0B10A3831CE0F /* DecksmithDeviceTests.swift */,
+			);
+			path = DecksmithDeviceTests;
+			sourceTree = "<group>";
+		};
+		1710B9EFF7B2427217B3396C /* DecksmithCoreTests */ = {
+			isa = PBXGroup;
+			children = (
+				B75FE94C2463A646FA00D2D8 /* DecksmithCoreTests.swift */,
+			);
+			path = DecksmithCoreTests;
+			sourceTree = "<group>";
+		};
+		1BDE5C724972D302A63766F5 /* DecksmithPluginWebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				CAB1814035EFDEFA049C8138 /* DecksmithPluginWebSocket.swift */,
+			);
+			path = DecksmithPluginWebSocket;
+			sourceTree = "<group>";
+		};
+		264B0ED802CF97FACCC93E35 /* DecksmithPluginWebSocketTests */ = {
+			isa = PBXGroup;
+			children = (
+				275749EF52EA68D2B8D5159F /* DecksmithPluginWebSocketTests.swift */,
+			);
+			path = DecksmithPluginWebSocketTests;
+			sourceTree = "<group>";
+		};
+		28D5E7B37320C9C09A0AA855 /* DecksmithCore */ = {
+			isa = PBXGroup;
+			children = (
+				3FCAC1F6B6499575C6214FEC /* DecksmithCore.swift */,
+			);
+			path = DecksmithCore;
+			sourceTree = "<group>";
+		};
+		43098D0609DB8C3AD8EF1649 /* DecksmithProtocol */ = {
+			isa = PBXGroup;
+			children = (
+				1B5877A0803FC16B34E296FC /* DecksmithProtocol.swift */,
+			);
+			path = DecksmithProtocol;
+			sourceTree = "<group>";
+		};
+		4DA96B47087C86E114CDF883 /* DecksmithApp */ = {
+			isa = PBXGroup;
+			children = (
+				3A01832A25A025D648C64D47 /* DecksmithApp.swift */,
+			);
+			path = DecksmithApp;
+			sourceTree = "<group>";
+		};
+		52E920CECFA4E4B3CC7599B0 /* DecksmithRenderingTests */ = {
+			isa = PBXGroup;
+			children = (
+				EC07BF807CCD5008778129DC /* DecksmithRenderingTests.swift */,
+			);
+			path = DecksmithRenderingTests;
+			sourceTree = "<group>";
+		};
+		56858B6283A30D204C2D8862 /* DecksmithPersistenceTests */ = {
+			isa = PBXGroup;
+			children = (
+				3C7AEF05454A1AB15A6E8130 /* DecksmithPersistenceTests.swift */,
+			);
+			path = DecksmithPersistenceTests;
+			sourceTree = "<group>";
+		};
+		56E5AB44FF4059F0BDF8F1A5 /* DecksmithUSB */ = {
+			isa = PBXGroup;
+			children = (
+				128658876DADA1656E12FE81 /* DecksmithUSB.swift */,
+			);
+			path = DecksmithUSB;
+			sourceTree = "<group>";
+		};
+		5AF56E7BA0DBC93114C18706 /* DecksmithTransport */ = {
+			isa = PBXGroup;
+			children = (
+				9C6E090D90EF385128CA70DC /* DecksmithTransport.swift */,
+			);
+			path = DecksmithTransport;
+			sourceTree = "<group>";
+		};
+		5DC373006258397F03BCBB99 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A8018FDC703E774AAB3B3DC8 /* Decksmith.app */,
+				CB4B16047874F16CA702E540 /* DecksmithCoreTests.xctest */,
+				AFF4AA2B6831EA7AF4D1F71B /* DecksmithDeviceTests.xctest */,
+				30C0D4EF73EBE14B8526588D /* DecksmithObservabilityTests.xctest */,
+				2FCDBEC03E0EBECC160F0F48 /* DecksmithPersistenceTests.xctest */,
+				5638B56D613C9415AB24C0B4 /* DecksmithPluginSwiftTests.xctest */,
+				E328C7116DABDA6D65FF68C1 /* DecksmithPluginWebSocketTests.xctest */,
+				02BCAD5D31A69C0B4A72C87A /* DecksmithProtocolTests.xctest */,
+				B05B17CFD1323B221DA487F2 /* DecksmithRenderingTests.xctest */,
+				0A69BA793420EB8125313713 /* DecksmithRuntimeTests.xctest */,
+				009CB70AC2C791A7EEC151CF /* DecksmithTransportTests.xctest */,
+				273BEA35445708934875B95B /* DecksmithUSBTests.xctest */,
+				D2426DF0D235011B69DE3E70 /* libDecksmithCore.a */,
+				9BC29F72F601D5E8446B1B75 /* libDecksmithDevice.a */,
+				97C905422946022A30A0090B /* libDecksmithObservability.a */,
+				1DF7A6049B6C5D1FAF1B0E8D /* libDecksmithPersistence.a */,
+				47D0B4331FB77EF220660E4B /* libDecksmithPluginSwift.a */,
+				E70C1DF017778E37902A5C3C /* libDecksmithPluginWebSocket.a */,
+				E534893764503F3B6CE16586 /* libDecksmithProtocol.a */,
+				1FC476304E1BD641409B2B86 /* libDecksmithRendering.a */,
+				EF5CA84BDE3C4F8B60C1296A /* libDecksmithRuntime.a */,
+				4B0E790C8C006299F073ED56 /* libDecksmithTransport.a */,
+				43F3E11A770E61A439B8298C /* libDecksmithUSB.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5EDA0EC152AC40820997625E = {
+			isa = PBXGroup;
+			children = (
+				AD2D9589348F71D70E4428BE /* Sources */,
+				BD955EAAEB7C6450CFE0613A /* Tests */,
+				88079EF74C2FF7D1F86A6559 /* Frameworks */,
+				5DC373006258397F03BCBB99 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61E829B5268745C954135C1D /* DecksmithTransportTests */ = {
+			isa = PBXGroup;
+			children = (
+				52366689871D925E27A4CA15 /* BoundedPacketBufferTests.swift */,
+				06A15F191F5C3A05E9EA5690 /* DecksmithTransportTests.swift */,
+				03DEA297BAECC0F78A367582 /* RealHardwareIntegrationTests.swift */,
+			);
+			path = DecksmithTransportTests;
+			sourceTree = "<group>";
+		};
+		863FDB2E76DC7A34C932BB5C /* DecksmithProtocolTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F3DA24191942BC80DD365FB /* DecksmithProtocolTests.swift */,
+				478F4073D0151685FA04FA0B /* ProtocolRegistryTests.swift */,
+			);
+			path = DecksmithProtocolTests;
+			sourceTree = "<group>";
+		};
+		88079EF74C2FF7D1F86A6559 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6686D55C80701A744AA4682 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8D6C7EF451EAFC38AD68025E /* DecksmithPluginSwift */ = {
+			isa = PBXGroup;
+			children = (
+				F2A3A746D5D796FA594B9C4B /* DecksmithPluginSwift.swift */,
+			);
+			path = DecksmithPluginSwift;
+			sourceTree = "<group>";
+		};
+		9280571AF22693293E669CC2 /* DecksmithPluginSwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				B912799CA178521C9A2AA6C8 /* DecksmithPluginSwiftTests.swift */,
+			);
+			path = DecksmithPluginSwiftTests;
+			sourceTree = "<group>";
+		};
+		A3E2162FDD7C9A57E5F89D8C /* DecksmithDevice */ = {
+			isa = PBXGroup;
+			children = (
+				2B4FBD7874A0ED4A85C5B5B9 /* DecksmithDevice.swift */,
+			);
+			path = DecksmithDevice;
+			sourceTree = "<group>";
+		};
+		AD2D9589348F71D70E4428BE /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4DA96B47087C86E114CDF883 /* DecksmithApp */,
+				28D5E7B37320C9C09A0AA855 /* DecksmithCore */,
+				A3E2162FDD7C9A57E5F89D8C /* DecksmithDevice */,
+				BB1A3EE7DA72F69917B757D6 /* DecksmithObservability */,
+				FC5D6AB391C7E04F88297FD0 /* DecksmithPersistence */,
+				8D6C7EF451EAFC38AD68025E /* DecksmithPluginSwift */,
+				1BDE5C724972D302A63766F5 /* DecksmithPluginWebSocket */,
+				43098D0609DB8C3AD8EF1649 /* DecksmithProtocol */,
+				B582F8D61EEBB1FB7432B9D8 /* DecksmithRendering */,
+				F60F1FDE3C75856EF696E3E0 /* DecksmithRuntime */,
+				5AF56E7BA0DBC93114C18706 /* DecksmithTransport */,
+				56E5AB44FF4059F0BDF8F1A5 /* DecksmithUSB */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		ADD4B2B13884C4739DF0667B /* DecksmithObservabilityTests */ = {
+			isa = PBXGroup;
+			children = (
+				916FDB810826DAC19A7A3FC1 /* DecksmithObservabilityTests.swift */,
+			);
+			path = DecksmithObservabilityTests;
+			sourceTree = "<group>";
+		};
+		B582F8D61EEBB1FB7432B9D8 /* DecksmithRendering */ = {
+			isa = PBXGroup;
+			children = (
+				2D2F96E029DAC3455883A988 /* DecksmithRendering.swift */,
+			);
+			path = DecksmithRendering;
+			sourceTree = "<group>";
+		};
+		BB1A3EE7DA72F69917B757D6 /* DecksmithObservability */ = {
+			isa = PBXGroup;
+			children = (
+				B325479A9D1FEDBFB5A5EE93 /* DecksmithObservability.swift */,
+			);
+			path = DecksmithObservability;
+			sourceTree = "<group>";
+		};
+		BD955EAAEB7C6450CFE0613A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1710B9EFF7B2427217B3396C /* DecksmithCoreTests */,
+				0A50A149C75C8C4AADAC29F1 /* DecksmithDeviceTests */,
+				ADD4B2B13884C4739DF0667B /* DecksmithObservabilityTests */,
+				56858B6283A30D204C2D8862 /* DecksmithPersistenceTests */,
+				9280571AF22693293E669CC2 /* DecksmithPluginSwiftTests */,
+				264B0ED802CF97FACCC93E35 /* DecksmithPluginWebSocketTests */,
+				863FDB2E76DC7A34C932BB5C /* DecksmithProtocolTests */,
+				52E920CECFA4E4B3CC7599B0 /* DecksmithRenderingTests */,
+				DC426912BC67CB59C03257FA /* DecksmithRuntimeTests */,
+				61E829B5268745C954135C1D /* DecksmithTransportTests */,
+				F6A1E748DC52D31414FEB537 /* DecksmithUSBTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		DC426912BC67CB59C03257FA /* DecksmithRuntimeTests */ = {
+			isa = PBXGroup;
+			children = (
+				9DDBDA481649147405F391F8 /* DecksmithRuntimeTests.swift */,
+			);
+			path = DecksmithRuntimeTests;
+			sourceTree = "<group>";
+		};
+		F60F1FDE3C75856EF696E3E0 /* DecksmithRuntime */ = {
+			isa = PBXGroup;
+			children = (
+				29A7B68BBF4862A9A624C3EA /* DecksmithRuntime.swift */,
+				41FE6573CDEC919516B6B8F0 /* Routing.swift */,
+			);
+			path = DecksmithRuntime;
+			sourceTree = "<group>";
+		};
+		F6A1E748DC52D31414FEB537 /* DecksmithUSBTests */ = {
+			isa = PBXGroup;
+			children = (
+				E92FA814CAC3B3573485C5FA /* DecksmithUSBTests.swift */,
+			);
+			path = DecksmithUSBTests;
+			sourceTree = "<group>";
+		};
+		FC5D6AB391C7E04F88297FD0 /* DecksmithPersistence */ = {
+			isa = PBXGroup;
+			children = (
+				79F11E695ED85A5B8FA7CDA2 /* DecksmithPersistence.swift */,
+			);
+			path = DecksmithPersistence;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D98439DA2F09F2BB387C1A8 /* DecksmithDeviceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000000000000000011;
-			buildPhases = (000000000000000000000008, 000000000000000000000009, 00000000000000000000000A);
-			dependencies = ();
+			buildConfigurationList = 12DD2815A0A50BCE34C25B63 /* Build configuration list for PBXNativeTarget "DecksmithDeviceTests" */;
+			buildPhases = (
+				F4933929317F526A894010A5 /* Sources */,
+				DF186F09E5E6936D695D8E3B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF2E9621F665851A4DCFCEB3 /* PBXTargetDependency */,
+			);
+			name = DecksmithDeviceTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithDeviceTests;
+			productReference = AFF4AA2B6831EA7AF4D1F71B /* DecksmithDeviceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0E779C775D729D52DDDF78AB /* DecksmithPluginSwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22977CC88B5C8D8BF7E2974C /* Build configuration list for PBXNativeTarget "DecksmithPluginSwiftTests" */;
+			buildPhases = (
+				F8002B9F0B17E3C57B8B5279 /* Sources */,
+				60E22D00DA9E9F9A590D1080 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1762521A48733C2527E4CD08 /* PBXTargetDependency */,
+			);
+			name = DecksmithPluginSwiftTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPluginSwiftTests;
+			productReference = 5638B56D613C9415AB24C0B4 /* DecksmithPluginSwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		131FCE30CB24FBC230CC58F6 /* DecksmithRenderingTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D9B416143F3BB783A109B8F /* Build configuration list for PBXNativeTarget "DecksmithRenderingTests" */;
+			buildPhases = (
+				60C7257CB21ABDB60069746A /* Sources */,
+				7F2980D06258A11A8EE4DD92 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F3C0684E5CE2060BCF3CAA48 /* PBXTargetDependency */,
+			);
+			name = DecksmithRenderingTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithRenderingTests;
+			productReference = B05B17CFD1323B221DA487F2 /* DecksmithRenderingTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2DDD3A0825FCAA5D312A00D1 /* DecksmithRuntimeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4840453B48DC9E88BC11FF0C /* Build configuration list for PBXNativeTarget "DecksmithRuntimeTests" */;
+			buildPhases = (
+				F77F33C5BF37A675A2645251 /* Sources */,
+				DBF22A4FED575E942C71E211 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A194BBE109B7C1297222AD6 /* PBXTargetDependency */,
+			);
+			name = DecksmithRuntimeTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithRuntimeTests;
+			productReference = 0A69BA793420EB8125313713 /* DecksmithRuntimeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3977258A319D66C8A000ABD8 /* DecksmithPluginSwift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D378A0B58A71A1AB4ED2F1E /* Build configuration list for PBXNativeTarget "DecksmithPluginSwift" */;
+			buildPhases = (
+				B412B69B0CD683340B388AE0 /* Sources */,
+				45CE812ED008662915193AB1 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D70B1F86DE9B42EE96E0EC5 /* PBXTargetDependency */,
+				FDD63ADA16EA2B4231AB6BCE /* PBXTargetDependency */,
+			);
+			name = DecksmithPluginSwift;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPluginSwift;
+			productReference = 47D0B4331FB77EF220660E4B /* libDecksmithPluginSwift.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		4991E8DDB502EBC60265F7FE /* DecksmithObservability */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01C3E473704FD2751807816C /* Build configuration list for PBXNativeTarget "DecksmithObservability" */;
+			buildPhases = (
+				9647106F47C50190CD52A8CF /* Sources */,
+				2D0DCDF1CB4B606C3F3004C6 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				527971869355634CACA34786 /* PBXTargetDependency */,
+			);
+			name = DecksmithObservability;
+			packageProductDependencies = (
+			);
+			productName = DecksmithObservability;
+			productReference = 97C905422946022A30A0090B /* libDecksmithObservability.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		578BBC050CBD7D4A32814A8A /* DecksmithDevice */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C6458F2CF8B60F9096EFA35F /* Build configuration list for PBXNativeTarget "DecksmithDevice" */;
+			buildPhases = (
+				8E3D63B261B90AF467E2C29D /* Sources */,
+				2DD5DCFA9195450730068D91 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0C1E122824CFC3FEDFA8E126 /* PBXTargetDependency */,
+				09E7BDA507B578335E99DA1F /* PBXTargetDependency */,
+				DD900DEF64F44490BE0637E8 /* PBXTargetDependency */,
+				99ED40BC7C1B78B59387AE4E /* PBXTargetDependency */,
+			);
+			name = DecksmithDevice;
+			packageProductDependencies = (
+			);
+			productName = DecksmithDevice;
+			productReference = 9BC29F72F601D5E8446B1B75 /* libDecksmithDevice.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		5DC02C494C6BEB2B853DF563 /* DecksmithPersistence */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E81642F14DA606C29951278 /* Build configuration list for PBXNativeTarget "DecksmithPersistence" */;
+			buildPhases = (
+				BC43DA6D3ECA272BF07195EC /* Sources */,
+				798743E192C8918E1B5BB7C9 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A41C6A8CD9C9DBB76CDF4A0 /* PBXTargetDependency */,
+			);
+			name = DecksmithPersistence;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPersistence;
+			productReference = 1DF7A6049B6C5D1FAF1B0E8D /* libDecksmithPersistence.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		6A41B5A50C08BCB8F9D64F08 /* DecksmithPersistenceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D199AA3272A644B165FA3265 /* Build configuration list for PBXNativeTarget "DecksmithPersistenceTests" */;
+			buildPhases = (
+				31FD688B09D94D7DEEDB4AD5 /* Sources */,
+				9569310CD993FDB37CE43AB2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7A361A0D5E1620FCC0824EAC /* PBXTargetDependency */,
+			);
+			name = DecksmithPersistenceTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPersistenceTests;
+			productReference = 2FCDBEC03E0EBECC160F0F48 /* DecksmithPersistenceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		6A7B0F4334737E7359C1C4E8 /* Decksmith */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03CBD6B3D3F0F4F3795989CD /* Build configuration list for PBXNativeTarget "Decksmith" */;
+			buildPhases = (
+				B119A4C974F48B229894C90D /* Sources */,
+				3C4B526CA2DC9B6678A46643 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E080B2411EF6297362FDAC9 /* PBXTargetDependency */,
+				6C1A061B009212F4B1B4B437 /* PBXTargetDependency */,
+				5402BACA5D1F79BF093890C9 /* PBXTargetDependency */,
+				E0870929D2AC80AE8221C0CF /* PBXTargetDependency */,
+				B775312A936D1AFE23D33C19 /* PBXTargetDependency */,
+				CD791FB7EDB699F4D903C04C /* PBXTargetDependency */,
+				52513100C1EAF0404FB290B5 /* PBXTargetDependency */,
+				FBBF23DE187952C6CC9849A1 /* PBXTargetDependency */,
+				85582D34F582C5B7F2CBD8A7 /* PBXTargetDependency */,
+				5775F2D1379A069C1B01BFA4 /* PBXTargetDependency */,
+				16AA01DA9097196A92A5AB9D /* PBXTargetDependency */,
+			);
 			name = Decksmith;
+			packageProductDependencies = (
+			);
 			productName = Decksmith;
-			productReference = 000000000000000000000007;
+			productReference = A8018FDC703E774AAB3B3DC8 /* Decksmith.app */;
 			productType = "com.apple.product-type.application";
 		};
-		000000000000000000000005 = { isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sources/DecksmithApp/DecksmithApp.swift"; sourceTree = "<group>"; };
-		000000000000000000000006 = { isa = PBXFileReference; lastKnownFileType = text; path = Package.swift; sourceTree = "<group>"; };
-		000000000000000000000016 = { isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sources/DecksmithApp/Info.plist"; sourceTree = "<group>"; };
-		000000000000000000000007 = { isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Decksmith.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000000000000000008 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (00000000000000000000000B); runOnlyForDeploymentPostprocessing = 0; };
-		000000000000000000000009 = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		00000000000000000000000A = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		00000000000000000000000B = { isa = PBXBuildFile; fileRef = 000000000000000000000005; };
-		000000000000000000000010 = { isa = XCConfigurationList; buildConfigurations = (000000000000000000000012, 000000000000000000000013); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		000000000000000000000011 = { isa = XCConfigurationList; buildConfigurations = (000000000000000000000014, 000000000000000000000015); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		000000000000000000000012 = { isa = XCBuildConfiguration; name = Debug; buildSettings = { MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 6.0; PRODUCT_NAME = "$(TARGET_NAME)"; }; };
-		000000000000000000000013 = { isa = XCBuildConfiguration; name = Release; buildSettings = { MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 6.0; PRODUCT_NAME = "$(TARGET_NAME)"; }; };
-		000000000000000000000014 = { isa = XCBuildConfiguration; name = Debug; buildSettings = { INFOPLIST_FILE = "Sources/DecksmithApp/Info.plist"; MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 6.0; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities"; PRODUCT_BUNDLE_IDENTIFIER = "com.caschWLLC.Decksmith"; SWIFT_EMIT_LOC_STRINGS = YES; }; };
-		000000000000000000000015 = { isa = XCBuildConfiguration; name = Release; buildSettings = { INFOPLIST_FILE = "Sources/DecksmithApp/Info.plist"; MACOSX_DEPLOYMENT_TARGET = 14.0; SWIFT_VERSION = 6.0; INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities"; PRODUCT_BUNDLE_IDENTIFIER = "com.caschWLLC.Decksmith"; SWIFT_EMIT_LOC_STRINGS = YES; }; };
+		6AB18CFEC0B65C718D48A209 /* DecksmithObservabilityTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5724F587F363AD97ED076EDA /* Build configuration list for PBXNativeTarget "DecksmithObservabilityTests" */;
+			buildPhases = (
+				229E46EA6BD8703BB6B6E5D2 /* Sources */,
+				6EBBD7F845A33FEE1FC201DB /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F15ECB60C458BA2DEA29810D /* PBXTargetDependency */,
+			);
+			name = DecksmithObservabilityTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithObservabilityTests;
+			productReference = 30C0D4EF73EBE14B8526588D /* DecksmithObservabilityTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		76A4C5EDFBBB25DBD4E18905 /* DecksmithUSB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75DA7214974838355E6D1D1F /* Build configuration list for PBXNativeTarget "DecksmithUSB" */;
+			buildPhases = (
+				ECC40E2E9A763619585FD94E /* Sources */,
+				B761C58F8038DB8A4A39AE68 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C4660A32804936D6A3F64A1B /* PBXTargetDependency */,
+			);
+			name = DecksmithUSB;
+			packageProductDependencies = (
+			);
+			productName = DecksmithUSB;
+			productReference = 43F3E11A770E61A439B8298C /* libDecksmithUSB.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7A92AC186C00E8A8C1F40823 /* DecksmithPluginWebSocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F17ADDF1DCFDFF2DF11C51F3 /* Build configuration list for PBXNativeTarget "DecksmithPluginWebSocket" */;
+			buildPhases = (
+				63764EC3FB306305C867B6EF /* Sources */,
+				9AD1D191312FAB0B0741E710 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FFD3D23FA643266AD0E93B54 /* PBXTargetDependency */,
+			);
+			name = DecksmithPluginWebSocket;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPluginWebSocket;
+			productReference = E70C1DF017778E37902A5C3C /* libDecksmithPluginWebSocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7CEBF825613CB120EE99C085 /* DecksmithRuntime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE8D4A35EDD3E9FFF970343C /* Build configuration list for PBXNativeTarget "DecksmithRuntime" */;
+			buildPhases = (
+				82DC325C1D56DB881CA31871 /* Sources */,
+				F161E42FC594264DF1051DD8 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				506FDDCBD7723823DDFB0A36 /* PBXTargetDependency */,
+				57E989016A77177DD8A39B90 /* PBXTargetDependency */,
+				53F837EACBC9ECF84E84091D /* PBXTargetDependency */,
+			);
+			name = DecksmithRuntime;
+			packageProductDependencies = (
+			);
+			productName = DecksmithRuntime;
+			productReference = EF5CA84BDE3C4F8B60C1296A /* libDecksmithRuntime.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7EC954F7699A44C7FB99E4CA /* DecksmithProtocolTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 664BBF65D30D921EA82AF6C9 /* Build configuration list for PBXNativeTarget "DecksmithProtocolTests" */;
+			buildPhases = (
+				8EF5DDFD65C9E2BA95218D69 /* Sources */,
+				A2A2FA4D0FDD06C2B37EF55C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A56F22CC8D65CC837BB31042 /* PBXTargetDependency */,
+			);
+			name = DecksmithProtocolTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithProtocolTests;
+			productReference = 02BCAD5D31A69C0B4A72C87A /* DecksmithProtocolTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A8D1ACD82284CB03D6A04F84 /* DecksmithUSBTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08A009EFA30E5302E925CBF5 /* Build configuration list for PBXNativeTarget "DecksmithUSBTests" */;
+			buildPhases = (
+				CACDAECF6D38228C33CF6601 /* Sources */,
+				4E6E9A8E3BA59F87594819C5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				234F2D460942F4BFBD661F37 /* PBXTargetDependency */,
+			);
+			name = DecksmithUSBTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithUSBTests;
+			productReference = 273BEA35445708934875B95B /* DecksmithUSBTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AA6236CCF10155EED7C420C4 /* DecksmithRendering */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0FA8C53890F05B664E00E7B /* Build configuration list for PBXNativeTarget "DecksmithRendering" */;
+			buildPhases = (
+				56D3A1CA826059F29EDF3796 /* Sources */,
+				DC4921385F0C46F14A07B1E6 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A8F2563AB9E667BAFD19B90 /* PBXTargetDependency */,
+			);
+			name = DecksmithRendering;
+			packageProductDependencies = (
+			);
+			productName = DecksmithRendering;
+			productReference = 1FC476304E1BD641409B2B86 /* libDecksmithRendering.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B9DA9554BCD5B229882B3F02 /* DecksmithPluginWebSocketTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A875249791ACDC44B65BA88 /* Build configuration list for PBXNativeTarget "DecksmithPluginWebSocketTests" */;
+			buildPhases = (
+				8C684205E7DA5DBBFEAE9446 /* Sources */,
+				61F6C6FC6F9DD14292D30771 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70179AC579CC8743CB36CF40 /* PBXTargetDependency */,
+			);
+			name = DecksmithPluginWebSocketTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithPluginWebSocketTests;
+			productReference = E328C7116DABDA6D65FF68C1 /* DecksmithPluginWebSocketTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BA428C5345113015B87262CE /* DecksmithCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B961DEC69951073E8798F9B1 /* Build configuration list for PBXNativeTarget "DecksmithCoreTests" */;
+			buildPhases = (
+				CD37CC817F053FBB9C526E93 /* Sources */,
+				3D6AE3382A3FB17582EE290C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E1344B2A55C2B85220178583 /* PBXTargetDependency */,
+			);
+			name = DecksmithCoreTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithCoreTests;
+			productReference = CB4B16047874F16CA702E540 /* DecksmithCoreTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D493177E214700D0AB281AFC /* DecksmithCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FD600B4968E21AFC2DD788D7 /* Build configuration list for PBXNativeTarget "DecksmithCore" */;
+			buildPhases = (
+				3A6C1CAB587CE8CADF76CFDC /* Sources */,
+				ED80A3095DF4367690BB5AC8 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DecksmithCore;
+			packageProductDependencies = (
+			);
+			productName = DecksmithCore;
+			productReference = D2426DF0D235011B69DE3E70 /* libDecksmithCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		DEEB316B9E2423A196201D09 /* DecksmithTransport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0C86FC0544B52AE9DAEC35F /* Build configuration list for PBXNativeTarget "DecksmithTransport" */;
+			buildPhases = (
+				1F87F7495C798A6B5AE6F27E /* Sources */,
+				6A8BB9E6AEF36A7CC0A6E1F7 /* Copy Swift Objective-C Interface Header */,
+				9FE09E8C8630EE66F1C1A6BA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB3C3CCDF0DCBCED9C5CF039 /* PBXTargetDependency */,
+			);
+			name = DecksmithTransport;
+			packageProductDependencies = (
+			);
+			productName = DecksmithTransport;
+			productReference = 4B0E790C8C006299F073ED56 /* libDecksmithTransport.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E227A0EF1E5D651C947D9A99 /* DecksmithProtocol */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E49154B446F9CC8D1C808EBD /* Build configuration list for PBXNativeTarget "DecksmithProtocol" */;
+			buildPhases = (
+				841B0473E903FACE5A06D3F3 /* Sources */,
+				C345FF10D5EB684436857E70 /* Copy Swift Objective-C Interface Header */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				880627FE58F0B23FA0B4BBA2 /* PBXTargetDependency */,
+			);
+			name = DecksmithProtocol;
+			packageProductDependencies = (
+			);
+			productName = DecksmithProtocol;
+			productReference = E534893764503F3B6CE16586 /* libDecksmithProtocol.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		FC964B8593EC592A24019099 /* DecksmithTransportTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACA52ADE048965105D6F93C6 /* Build configuration list for PBXNativeTarget "DecksmithTransportTests" */;
+			buildPhases = (
+				A7883EA265E0B1FCA577BCE0 /* Sources */,
+				7AAD7BC94317311711F54413 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E827355230E6489E48752368 /* PBXTargetDependency */,
+			);
+			name = DecksmithTransportTests;
+			packageProductDependencies = (
+			);
+			productName = DecksmithTransportTests;
+			productReference = 009CB70AC2C791A7EEC151CF /* DecksmithTransportTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8A5B0C1B23F2513C8A5B97D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = EC2D59B4F87844341266D95E /* Build configuration list for PBXProject "Decksmith" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5EDA0EC152AC40820997625E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5DC373006258397F03BCBB99 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A7B0F4334737E7359C1C4E8 /* Decksmith */,
+				D493177E214700D0AB281AFC /* DecksmithCore */,
+				E227A0EF1E5D651C947D9A99 /* DecksmithProtocol */,
+				DEEB316B9E2423A196201D09 /* DecksmithTransport */,
+				AA6236CCF10155EED7C420C4 /* DecksmithRendering */,
+				578BBC050CBD7D4A32814A8A /* DecksmithDevice */,
+				3977258A319D66C8A000ABD8 /* DecksmithPluginSwift */,
+				7A92AC186C00E8A8C1F40823 /* DecksmithPluginWebSocket */,
+				7CEBF825613CB120EE99C085 /* DecksmithRuntime */,
+				5DC02C494C6BEB2B853DF563 /* DecksmithPersistence */,
+				4991E8DDB502EBC60265F7FE /* DecksmithObservability */,
+				76A4C5EDFBBB25DBD4E18905 /* DecksmithUSB */,
+				BA428C5345113015B87262CE /* DecksmithCoreTests */,
+				7EC954F7699A44C7FB99E4CA /* DecksmithProtocolTests */,
+				FC964B8593EC592A24019099 /* DecksmithTransportTests */,
+				0D98439DA2F09F2BB387C1A8 /* DecksmithDeviceTests */,
+				131FCE30CB24FBC230CC58F6 /* DecksmithRenderingTests */,
+				2DDD3A0825FCAA5D312A00D1 /* DecksmithRuntimeTests */,
+				0E779C775D729D52DDDF78AB /* DecksmithPluginSwiftTests */,
+				B9DA9554BCD5B229882B3F02 /* DecksmithPluginWebSocketTests */,
+				6A41B5A50C08BCB8F9D64F08 /* DecksmithPersistenceTests */,
+				6AB18CFEC0B65C718D48A209 /* DecksmithObservabilityTests */,
+				A8D1ACD82284CB03D6A04F84 /* DecksmithUSBTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2D0DCDF1CB4B606C3F3004C6 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		2DD5DCFA9195450730068D91 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		45CE812ED008662915193AB1 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		6A8BB9E6AEF36A7CC0A6E1F7 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		798743E192C8918E1B5BB7C9 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		9AD1D191312FAB0B0741E710 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		B761C58F8038DB8A4A39AE68 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		C345FF10D5EB684436857E70 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		DC4921385F0C46F14A07B1E6 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		ED80A3095DF4367690BB5AC8 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+		F161E42FC594264DF1051DD8 /* Copy Swift Objective-C Interface Header */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(DERIVED_SOURCES_DIR)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			name = "Copy Swift Objective-C Interface Header";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/include/$(PRODUCT_MODULE_NAME)/$(SWIFT_OBJC_INTERFACE_HEADER_NAME)",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "ditto \"${SCRIPT_INPUT_FILE_0}\" \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1F87F7495C798A6B5AE6F27E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CDF0BA16F2D6DE895ECF36E /* DecksmithTransport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		229E46EA6BD8703BB6B6E5D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB968DDC348696FDC4266C7E /* DecksmithObservabilityTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		31FD688B09D94D7DEEDB4AD5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D6C2EBBE23B1C130EABAF57 /* DecksmithPersistenceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3A6C1CAB587CE8CADF76CFDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D1A0E36BA91D1AA9477E7AE /* DecksmithCore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		56D3A1CA826059F29EDF3796 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79A5CF472069CC2AC95FEAF /* DecksmithRendering.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60C7257CB21ABDB60069746A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				907BD0097C91DCAD430C254E /* DecksmithRenderingTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		63764EC3FB306305C867B6EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF13F6F96CECAF5DB1522042 /* DecksmithPluginWebSocket.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82DC325C1D56DB881CA31871 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F980179AA0362A3AF7A62BB7 /* DecksmithRuntime.swift in Sources */,
+				16A1CE00C7B484800C5C0348 /* Routing.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		841B0473E903FACE5A06D3F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEB7624D0E90F067767E67D3 /* DecksmithProtocol.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C684205E7DA5DBBFEAE9446 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A37BE62B3BDAB5F717296E1F /* DecksmithPluginWebSocketTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8E3D63B261B90AF467E2C29D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C0D6ABD6469534C8B86770F /* DecksmithDevice.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EF5DDFD65C9E2BA95218D69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40727740D00ADCE6C9BF2710 /* DecksmithProtocolTests.swift in Sources */,
+				D99EBC2D57B7CDA44D665CEA /* ProtocolRegistryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9647106F47C50190CD52A8CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F535D69525BEF0EC82B8DD72 /* DecksmithObservability.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7883EA265E0B1FCA577BCE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57814147A3D10234DE0E9D26 /* BoundedPacketBufferTests.swift in Sources */,
+				7B8FCBAB3681090113C37A75 /* DecksmithTransportTests.swift in Sources */,
+				E1A9E7E42868DBCD67CEDEB2 /* RealHardwareIntegrationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B119A4C974F48B229894C90D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7DD12D51CDF1E9104EE01D7 /* DecksmithApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B412B69B0CD683340B388AE0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F60C9E1130BE7E4DFE1333BF /* DecksmithPluginSwift.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC43DA6D3ECA272BF07195EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				630B0994C760A788CDE3F0A0 /* DecksmithPersistence.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CACDAECF6D38228C33CF6601 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F479239958335411F32552 /* DecksmithUSBTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD37CC817F053FBB9C526E93 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D08CFDF7424018CA76175FE2 /* DecksmithCoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECC40E2E9A763619585FD94E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E01708C3AE29EBB6FEBE1CA /* DecksmithUSB.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4933929317F526A894010A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7535DFC800B43A751E48F269 /* DecksmithDeviceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F77F33C5BF37A675A2645251 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAF44305D587D9DF9CF2E38B /* DecksmithRuntimeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F8002B9F0B17E3C57B8B5279 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3964CDA27D0DE4001E4D84D6 /* DecksmithPluginSwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		09E7BDA507B578335E99DA1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E227A0EF1E5D651C947D9A99 /* DecksmithProtocol */;
+			targetProxy = CB00173A093BD3530DD00C66 /* PBXContainerItemProxy */;
+		};
+		0C1E122824CFC3FEDFA8E126 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 6EC2E9697F78CCD473AA785E /* PBXContainerItemProxy */;
+		};
+		16AA01DA9097196A92A5AB9D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76A4C5EDFBBB25DBD4E18905 /* DecksmithUSB */;
+			targetProxy = 36FE2BAA52A0281C44F3C29D /* PBXContainerItemProxy */;
+		};
+		1762521A48733C2527E4CD08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3977258A319D66C8A000ABD8 /* DecksmithPluginSwift */;
+			targetProxy = DA6EC95B4975C3B7232F5A26 /* PBXContainerItemProxy */;
+		};
+		1A41C6A8CD9C9DBB76CDF4A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 4A5747EC78960B2AD7BA064D /* PBXContainerItemProxy */;
+		};
+		234F2D460942F4BFBD661F37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 76A4C5EDFBBB25DBD4E18905 /* DecksmithUSB */;
+			targetProxy = 7AC17D0E1067B0F24A075EBF /* PBXContainerItemProxy */;
+		};
+		506FDDCBD7723823DDFB0A36 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 82E0C69FBF77DCA65D743AED /* PBXContainerItemProxy */;
+		};
+		52513100C1EAF0404FB290B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3977258A319D66C8A000ABD8 /* DecksmithPluginSwift */;
+			targetProxy = 21FBAC16FDFB353CD75A4E72 /* PBXContainerItemProxy */;
+		};
+		527971869355634CACA34786 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = FA976A68D80800EA8D58E709 /* PBXContainerItemProxy */;
+		};
+		53F837EACBC9ECF84E84091D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A92AC186C00E8A8C1F40823 /* DecksmithPluginWebSocket */;
+			targetProxy = 826CFC08F8C40BBE2FE10585 /* PBXContainerItemProxy */;
+		};
+		5402BACA5D1F79BF093890C9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEEB316B9E2423A196201D09 /* DecksmithTransport */;
+			targetProxy = D157F166026CCEA9A66483F1 /* PBXContainerItemProxy */;
+		};
+		5775F2D1379A069C1B01BFA4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4991E8DDB502EBC60265F7FE /* DecksmithObservability */;
+			targetProxy = 25C7AD3363E32F8EED90F069 /* PBXContainerItemProxy */;
+		};
+		57E989016A77177DD8A39B90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3977258A319D66C8A000ABD8 /* DecksmithPluginSwift */;
+			targetProxy = 8E6AD68E5D79973FC0DFEF7C /* PBXContainerItemProxy */;
+		};
+		5A194BBE109B7C1297222AD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CEBF825613CB120EE99C085 /* DecksmithRuntime */;
+			targetProxy = 636828118002E2E6D9FDE302 /* PBXContainerItemProxy */;
+		};
+		6C1A061B009212F4B1B4B437 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E227A0EF1E5D651C947D9A99 /* DecksmithProtocol */;
+			targetProxy = 237FE4FD002B46CD030CD887 /* PBXContainerItemProxy */;
+		};
+		6E080B2411EF6297362FDAC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = A6CC24D41E7F2E41A6C5D8B1 /* PBXContainerItemProxy */;
+		};
+		70179AC579CC8743CB36CF40 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A92AC186C00E8A8C1F40823 /* DecksmithPluginWebSocket */;
+			targetProxy = 2AAE35C8988697BCD1AC8294 /* PBXContainerItemProxy */;
+		};
+		7A361A0D5E1620FCC0824EAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DC02C494C6BEB2B853DF563 /* DecksmithPersistence */;
+			targetProxy = 95BEFA53C5ACA62DF388CA98 /* PBXContainerItemProxy */;
+		};
+		85582D34F582C5B7F2CBD8A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DC02C494C6BEB2B853DF563 /* DecksmithPersistence */;
+			targetProxy = E1F1D5BE7BF5E047EE74E106 /* PBXContainerItemProxy */;
+		};
+		880627FE58F0B23FA0B4BBA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = D5E40721595C31C76CE46546 /* PBXContainerItemProxy */;
+		};
+		99ED40BC7C1B78B59387AE4E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA6236CCF10155EED7C420C4 /* DecksmithRendering */;
+			targetProxy = 8236214008F2BEEAFCCE8C7A /* PBXContainerItemProxy */;
+		};
+		9A8F2563AB9E667BAFD19B90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 94FBA8FAA86BA4EDEDD1395F /* PBXContainerItemProxy */;
+		};
+		9D70B1F86DE9B42EE96E0EC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = F3AF75445DE7A7F6BE034C1A /* PBXContainerItemProxy */;
+		};
+		A56F22CC8D65CC837BB31042 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E227A0EF1E5D651C947D9A99 /* DecksmithProtocol */;
+			targetProxy = 784F170F5824818C16119792 /* PBXContainerItemProxy */;
+		};
+		AB3C3CCDF0DCBCED9C5CF039 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 5313CCE227FA876492E2F84B /* PBXContainerItemProxy */;
+		};
+		B775312A936D1AFE23D33C19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CEBF825613CB120EE99C085 /* DecksmithRuntime */;
+			targetProxy = F883983FFAA790B89AD9FAC6 /* PBXContainerItemProxy */;
+		};
+		C4660A32804936D6A3F64A1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 8A4C359568C502C72C0A27C9 /* PBXContainerItemProxy */;
+		};
+		CD791FB7EDB699F4D903C04C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 578BBC050CBD7D4A32814A8A /* DecksmithDevice */;
+			targetProxy = D884EFBAFE9E7FAF64E4D265 /* PBXContainerItemProxy */;
+		};
+		DD900DEF64F44490BE0637E8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEEB316B9E2423A196201D09 /* DecksmithTransport */;
+			targetProxy = 5AE08138DE3798E69D731D6B /* PBXContainerItemProxy */;
+		};
+		E0870929D2AC80AE8221C0CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA6236CCF10155EED7C420C4 /* DecksmithRendering */;
+			targetProxy = C96BA6D71CB5BF2D7A621559 /* PBXContainerItemProxy */;
+		};
+		E1344B2A55C2B85220178583 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 7DD2108CAA545767730614F0 /* PBXContainerItemProxy */;
+		};
+		E827355230E6489E48752368 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEEB316B9E2423A196201D09 /* DecksmithTransport */;
+			targetProxy = 73E0CC1A682E5549F2219CAE /* PBXContainerItemProxy */;
+		};
+		F15ECB60C458BA2DEA29810D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4991E8DDB502EBC60265F7FE /* DecksmithObservability */;
+			targetProxy = 6089C5585CDD5D3C69F7AE90 /* PBXContainerItemProxy */;
+		};
+		F3C0684E5CE2060BCF3CAA48 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA6236CCF10155EED7C420C4 /* DecksmithRendering */;
+			targetProxy = BF7FDD62CE66D45629A00D73 /* PBXContainerItemProxy */;
+		};
+		FBBF23DE187952C6CC9849A1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A92AC186C00E8A8C1F40823 /* DecksmithPluginWebSocket */;
+			targetProxy = B7AEE8B99EC6177A14783DE9 /* PBXContainerItemProxy */;
+		};
+		FDD63ADA16EA2B4231AB6BCE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AA6236CCF10155EED7C420C4 /* DecksmithRendering */;
+			targetProxy = 07C826BCF0C1BE3FF4FBC567 /* PBXContainerItemProxy */;
+		};
+		FF2E9621F665851A4DCFCEB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 578BBC050CBD7D4A32814A8A /* DecksmithDevice */;
+			targetProxy = 7F25D08008D8E40784837913 /* PBXContainerItemProxy */;
+		};
+		FFD3D23FA643266AD0E93B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D493177E214700D0AB281AFC /* DecksmithCore */;
+			targetProxy = 35A7B4DD210F03E7152CB0E7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		091D82330F2A073423AE004C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0CDE1B93C0792108A451C020 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/DecksmithApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caschWLLC.Decksmith;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Debug;
+		};
+		0D8F973C83349B851C6CBFE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0EFD6A33E3F13CB15AF1E05F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		12B1CA8507FD08DFCA14D453 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		14E13CC284F3416CB7FE0582 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1B55A02BA422338E35E69675 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1F083D1E8CE0D19E94204A07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		20D69011591C1F218BA0A337 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		25856DCD9583FF7515C581EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2700E5A830A135231E0F49F5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		28B53A9B2D9E6A86BEE8B841 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		35C0991325EF463A7F0DE0B1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		37037BCC148901DBA1BFC86B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		424D6FB39093F22C84C9D99D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		43E3493AA50BB381B44BDD04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		49895796936A1F1351CDF74E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		4C2AE2577303420CFC4D728E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		4EBEA1ECA8CC7DBDBC7E92CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		5079838E4376D7261C658AEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5B57EB3FD8B224455AF19D33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		62036E09BC5527740637CB41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		687BE791A35E3C16BCC45E82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		78C93DE55D690922850D75EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7DB48E73D87829D0491420D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7E7D104E9F39A141F4E7524F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8023222DB1D11FBEEB518DC6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		851A8D78045ED77DDACFC581 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Sources/DecksmithApp/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.caschWLLC.Decksmith;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+			};
+			name = Release;
+		};
+		9155788ACDA8EC8B806E4548 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		9462ADF926AD840DB2E3B37B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		97B9104FC20F5D97EA60B10A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B238E29BF85A53BD839271D6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B3B8A01A758CEABA70144DC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		B44B9EA6B52321F4FFE0BD2F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B6CDE674F70CA53C234E1587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B7C934494E1546920C994311 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		B8D45F2059EBF95F4279D03E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BABAC6171015EB28C52A0DEA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D9D55918F13872B3EBEF5D87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		DA991ED8F91921475FC3D30C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DBAB71086DE3F3CA61FC768F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DD5A14D3EB19E7F0321142FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		DE26F1A31A314935B9DBC93B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E0CAF93480DAADF82FC3290A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		EC570659D14D33774F1BD165 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		F0F1907BB731BA43881D5770 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F37E08FC5EE353447A622822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		FC1EA1DCBD7EA99975E2C00F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01C3E473704FD2751807816C /* Build configuration list for PBXNativeTarget "DecksmithObservability" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC570659D14D33774F1BD165 /* Debug */,
+				78C93DE55D690922850D75EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		03CBD6B3D3F0F4F3795989CD /* Build configuration list for PBXNativeTarget "Decksmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CDE1B93C0792108A451C020 /* Debug */,
+				851A8D78045ED77DDACFC581 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		08A009EFA30E5302E925CBF5 /* Build configuration list for PBXNativeTarget "DecksmithUSBTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD5A14D3EB19E7F0321142FF /* Debug */,
+				7E7D104E9F39A141F4E7524F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		12DD2815A0A50BCE34C25B63 /* Build configuration list for PBXNativeTarget "DecksmithDeviceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7C934494E1546920C994311 /* Debug */,
+				424D6FB39093F22C84C9D99D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1D378A0B58A71A1AB4ED2F1E /* Build configuration list for PBXNativeTarget "DecksmithPluginSwift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBAB71086DE3F3CA61FC768F /* Debug */,
+				43E3493AA50BB381B44BDD04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1D9B416143F3BB783A109B8F /* Build configuration list for PBXNativeTarget "DecksmithRenderingTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20D69011591C1F218BA0A337 /* Debug */,
+				2700E5A830A135231E0F49F5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		22977CC88B5C8D8BF7E2974C /* Build configuration list for PBXNativeTarget "DecksmithPluginSwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B9104FC20F5D97EA60B10A /* Debug */,
+				B238E29BF85A53BD839271D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4840453B48DC9E88BC11FF0C /* Build configuration list for PBXNativeTarget "DecksmithRuntimeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25856DCD9583FF7515C581EC /* Debug */,
+				F0F1907BB731BA43881D5770 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5724F587F363AD97ED076EDA /* Build configuration list for PBXNativeTarget "DecksmithObservabilityTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DE26F1A31A314935B9DBC93B /* Debug */,
+				14E13CC284F3416CB7FE0582 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		664BBF65D30D921EA82AF6C9 /* Build configuration list for PBXNativeTarget "DecksmithProtocolTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62036E09BC5527740637CB41 /* Debug */,
+				D9D55918F13872B3EBEF5D87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6A875249791ACDC44B65BA88 /* Build configuration list for PBXNativeTarget "DecksmithPluginWebSocketTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BABAC6171015EB28C52A0DEA /* Debug */,
+				E0CAF93480DAADF82FC3290A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		75DA7214974838355E6D1D1F /* Build configuration list for PBXNativeTarget "DecksmithUSB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC1EA1DCBD7EA99975E2C00F /* Debug */,
+				F37E08FC5EE353447A622822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7E81642F14DA606C29951278 /* Build configuration list for PBXNativeTarget "DecksmithPersistence" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				28B53A9B2D9E6A86BEE8B841 /* Debug */,
+				687BE791A35E3C16BCC45E82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ACA52ADE048965105D6F93C6 /* Build configuration list for PBXNativeTarget "DecksmithTransportTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35C0991325EF463A7F0DE0B1 /* Debug */,
+				B3B8A01A758CEABA70144DC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B961DEC69951073E8798F9B1 /* Build configuration list for PBXNativeTarget "DecksmithCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8023222DB1D11FBEEB518DC6 /* Debug */,
+				091D82330F2A073423AE004C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C6458F2CF8B60F9096EFA35F /* Build configuration list for PBXNativeTarget "DecksmithDevice" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6CDE674F70CA53C234E1587 /* Debug */,
+				0EFD6A33E3F13CB15AF1E05F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D199AA3272A644B165FA3265 /* Build configuration list for PBXNativeTarget "DecksmithPersistenceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8D45F2059EBF95F4279D03E /* Debug */,
+				1B55A02BA422338E35E69675 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E0C86FC0544B52AE9DAEC35F /* Build configuration list for PBXNativeTarget "DecksmithTransport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA991ED8F91921475FC3D30C /* Debug */,
+				9155788ACDA8EC8B806E4548 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E0FA8C53890F05B664E00E7B /* Build configuration list for PBXNativeTarget "DecksmithRendering" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D8F973C83349B851C6CBFE1 /* Debug */,
+				4EBEA1ECA8CC7DBDBC7E92CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E49154B446F9CC8D1C808EBD /* Build configuration list for PBXNativeTarget "DecksmithProtocol" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7DB48E73D87829D0491420D0 /* Debug */,
+				49895796936A1F1351CDF74E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EC2D59B4F87844341266D95E /* Build configuration list for PBXProject "Decksmith" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9462ADF926AD840DB2E3B37B /* Debug */,
+				4C2AE2577303420CFC4D728E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE8D4A35EDD3E9FFF970343C /* Build configuration list for PBXNativeTarget "DecksmithRuntime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B44B9EA6B52321F4FFE0BD2F /* Debug */,
+				37037BCC148901DBA1BFC86B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F17ADDF1DCFDFF2DF11C51F3 /* Build configuration list for PBXNativeTarget "DecksmithPluginWebSocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5079838E4376D7261C658AEE /* Debug */,
+				5B57EB3FD8B224455AF19D33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FD600B4968E21AFC2DD788D7 /* Build configuration list for PBXNativeTarget "DecksmithCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F083D1E8CE0D19E94204A07 /* Debug */,
+				12B1CA8507FD08DFCA14D453 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
 	};
-	rootObject = 000000000000000000000001;
+	rootObject = E8A5B0C1B23F2513C8A5B97D /* Project object */;
 }

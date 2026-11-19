@@ -19,14 +19,14 @@ let package = Package(
         .library(name: "DecksmithUSB", targets: ["DecksmithUSB"])
     ],
     targets: [
-        .executableTarget(name: "DecksmithApp", dependencies: ["DecksmithRuntime", "DecksmithDevice"], exclude: ["Info.plist"]),
+        .executableTarget(name: "DecksmithApp", dependencies: ["DecksmithRuntime", "DecksmithDevice", "DecksmithObservability", "DecksmithPersistence"], exclude: ["Info.plist"]),
         .target(name: "DecksmithCore"),
         .target(name: "DecksmithProtocol", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithTransport", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithDevice", dependencies: ["DecksmithCore", "DecksmithProtocol", "DecksmithTransport", "DecksmithRendering"]),
         .target(name: "DecksmithRendering", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithRuntime", dependencies: ["DecksmithCore", "DecksmithPluginSwift", "DecksmithPluginWebSocket"]),
-        .target(name: "DecksmithPluginSwift", dependencies: ["DecksmithCore"]),
+        .target(name: "DecksmithPluginSwift", dependencies: ["DecksmithCore", "DecksmithRendering"]),
         .target(name: "DecksmithPluginWebSocket", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithPersistence", dependencies: ["DecksmithCore"]),
         .target(name: "DecksmithObservability", dependencies: ["DecksmithCore"]),
@@ -37,8 +37,10 @@ let package = Package(
         .testTarget(name: "DecksmithDeviceTests", dependencies: ["DecksmithDevice"]),
         .testTarget(name: "DecksmithRenderingTests", dependencies: ["DecksmithRendering"]),
         .testTarget(name: "DecksmithRuntimeTests", dependencies: ["DecksmithRuntime"]),
+        .testTarget(name: "DecksmithPluginSwiftTests", dependencies: ["DecksmithPluginSwift"]),
         .testTarget(name: "DecksmithPluginWebSocketTests", dependencies: ["DecksmithPluginWebSocket"]),
         .testTarget(name: "DecksmithPersistenceTests", dependencies: ["DecksmithPersistence"]),
+        .testTarget(name: "DecksmithObservabilityTests", dependencies: ["DecksmithObservability"]),
         .testTarget(name: "DecksmithUSBTests", dependencies: ["DecksmithUSB"])
     ]
 )

@@ -1,0 +1,220 @@
+name: Decksmith
+
+options:
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+
+targets:
+  Decksmith:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithApp
+        excludes:
+          - Info.plist
+    dependencies:
+      - target: DecksmithCore
+      - target: DecksmithProtocol
+      - target: DecksmithTransport
+      - target: DecksmithRendering
+      - target: DecksmithRuntime
+      - target: DecksmithDevice
+      - target: DecksmithPluginSwift
+      - target: DecksmithPluginWebSocket
+      - target: DecksmithPersistence
+      - target: DecksmithObservability
+      - target: DecksmithUSB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.caschWLLC.Decksmith
+        INFOPLIST_FILE: Sources/DecksmithApp/Info.plist
+        INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.utilities
+        SWIFT_EMIT_LOC_STRINGS: YES
+
+  DecksmithCore:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithCore
+
+  DecksmithProtocol:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithProtocol
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithTransport:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithTransport
+    dependencies:
+      - target: DecksmithCore
+      - sdk: IOKit.framework
+
+  DecksmithRendering:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithRendering
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithDevice:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithDevice
+    dependencies:
+      - target: DecksmithCore
+      - target: DecksmithProtocol
+      - target: DecksmithTransport
+      - target: DecksmithRendering
+
+  DecksmithPluginSwift:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithPluginSwift
+    dependencies:
+      - target: DecksmithCore
+      - target: DecksmithRendering
+
+  DecksmithPluginWebSocket:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithPluginWebSocket
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithRuntime:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithRuntime
+    dependencies:
+      - target: DecksmithCore
+      - target: DecksmithPluginSwift
+      - target: DecksmithPluginWebSocket
+
+  DecksmithPersistence:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithPersistence
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithObservability:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithObservability
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithUSB:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DecksmithUSB
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithCoreTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithCoreTests
+    dependencies:
+      - target: DecksmithCore
+
+  DecksmithProtocolTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithProtocolTests
+    dependencies:
+      - target: DecksmithProtocol
+
+  DecksmithTransportTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithTransportTests
+    dependencies:
+      - target: DecksmithTransport
+
+  DecksmithDeviceTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithDeviceTests
+    dependencies:
+      - target: DecksmithDevice
+
+  DecksmithRenderingTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithRenderingTests
+    dependencies:
+      - target: DecksmithRendering
+
+  DecksmithRuntimeTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithRuntimeTests
+    dependencies:
+      - target: DecksmithRuntime
+
+  DecksmithPluginSwiftTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithPluginSwiftTests
+    dependencies:
+      - target: DecksmithPluginSwift
+
+  DecksmithPluginWebSocketTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithPluginWebSocketTests
+    dependencies:
+      - target: DecksmithPluginWebSocket
+
+  DecksmithPersistenceTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithPersistenceTests
+    dependencies:
+      - target: DecksmithPersistence
+
+  DecksmithObservabilityTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithObservabilityTests
+    dependencies:
+      - target: DecksmithObservability
+
+  DecksmithUSBTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DecksmithUSBTests
+    dependencies:
+      - target: DecksmithUSB
