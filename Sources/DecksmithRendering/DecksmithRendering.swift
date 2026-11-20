@@ -305,7 +305,8 @@ public struct RasterSurfaceRenderer: SurfaceRenderer {
                             in: context
                         )
                     } else if case .text(let value, let x, let y, _, _) = layer {
-                        drawText(value, at: CGPoint(x: x, y: CGFloat(size.height) - y - 18), fontSize: min(16, CGFloat(size.height) / 6), in: context)
+                        let fontSize = min(16, max(11, CGFloat(size.height) / 7))
+                        drawText(value, at: CGPoint(x: x, y: CGFloat(size.height) - y - 18), fontSize: fontSize, in: context)
                     } else if case .progress(let value, let x, let y, let width, let height) = layer {
                         drawProgress(
                             value: value,

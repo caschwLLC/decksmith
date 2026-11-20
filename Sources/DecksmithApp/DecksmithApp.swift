@@ -1394,15 +1394,15 @@ final class DecksmithAppModel: ObservableObject {
             let feedback = pluginFeedback[surfaceID]
             var layers: [RenderLayer] = []
             if let imagePath = feedback?.imagePath ?? assignment.imagePath {
-                layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
+                layers.append(.image(assetID: imagePath, x: x + 14, y: 34, width: 48, height: 42))
             }
             if let title = displayTitle(for: assignment) {
-                layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))
+                layers.append(.text(value: title, x: x + 12, y: 8, width: 112, height: 16))
             }
             if let percentage = percentage(for: assignment, feedback: feedback) {
-                layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 72, y: 40, width: 116, height: 20))
+                layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 136, y: 8, width: 52, height: 20))
                 if supportsProgressBar(assignment) {
-                    layers.append(.progress(value: percentage, x: x + 72, y: 88, width: 116, height: 8))
+                    layers.append(.progress(value: percentage, x: x + 84, y: 78, width: 104, height: 8))
                 }
             }
             return layers
