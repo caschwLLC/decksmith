@@ -63,10 +63,12 @@ struct DecksmithPluginSwiftTests {
         #expect(process.terminationStatus == 0)
 
         let profiles = try StreamDeckPluginImporter.importProfiles(at: archive)
-        #expect(profiles.count == 2)
+        #expect(profiles.count == 1)
         #expect(profiles.reduce(0) { $0 + $1.assignments.count } == 2)
-        #expect(profiles.contains { $0.pluginID.rawValue == "com.example.keys" })
-        #expect(profiles.contains { $0.pluginID.rawValue == "com.example.encoders" })
+        #expect(profiles.first?.name == "Test")
+        #expect(profiles.first?.pageName == "page-1")
+        #expect(profiles.first?.assignments.contains { $0.pluginID?.rawValue == "com.example.keys" } == true)
+        #expect(profiles.first?.assignments.contains { $0.pluginID?.rawValue == "com.example.encoders" } == true)
         #expect(profiles.first?.assignments.first?.pluginID != nil)
         let keyAssignment = profiles
             .flatMap(\.assignments)

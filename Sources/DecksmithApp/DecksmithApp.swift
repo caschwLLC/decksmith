@@ -78,6 +78,7 @@ final class DecksmithAppModel: ObservableObject {
     @Published var selectedDeviceID: String?
     @Published var selectedSurfaceID = "encoder.0"
     @Published private(set) var plugins: [PluginPackage] = []
+    @Published private(set) var renderedPreviewImages: [String: NSImage] = [:]
     @Published private(set) var importedProfiles: [PluginProfile] = []
     @Published private(set) var activeImportedProfileName: String?
     @Published var selectedPluginID: PluginID?
@@ -342,35 +343,43 @@ final class DecksmithAppModel: ObservableObject {
             for profile in profiles {
                 importedProfiles.removeAll { $0.id == profile.id }
                 importedProfiles.append(profile)
-                if !plugins.contains(where: { $0.id == profile.pluginID }) {
-                    let actions = Dictionary(
-                        profile.assignments.map { ($0.actionID, $0) },
-                        uniquingKeysWith: { first, _ in first }
-                    ).values.map {
-                        PluginActionDefinition(
-                            id: $0.actionID,
-                            name: $0.name,
-                            summary: "Imported from \(profile.name)",
-                            supportedControls: $0.controller.lowercased() == "encoder" ? ["encoder", "touch"] : ["key"]
+                let groupedActions = Dictionary(
+                    profile.assignments.compactMap { assignment -> (PluginID, PluginActionDefinition)? in
+                        guard let pluginID = assignment.pluginID else { return nil }
+                        return (
+                            pluginID,
+                            PluginActionDefinition(
+                                id: assignment.actionID,
+                                name: assignment.name,
+                                summary: "Imported from \(profile.name)",
+                                supportedControls: assignment.controller.lowercased() == "encoder" ? ["encoder", "touch"] : ["key"]
+                            )
                         )
-                    }.sorted { $0.name < $1.name }
-                    plugins.append(PluginPackage(
-                        manifest: PluginManifest(
-                            id: profile.pluginID,
-                            name: profile.name,
-                            description: "Imported from the existing Stream Deck profile"
-                        ),
-                        actions: actions,
+                    },
+                    uniquingKeysWith: { first, _ in first }
+                )
+                for (pluginID, action) in groupedActions {
+                    mergeImportedPluginAction(
+                        pluginID: pluginID,
+                        pluginName: profile.assignments.first(where: { $0.pluginID == pluginID })?.pluginName,
+                        action: action,
                         sourcePath: profile.sourcePath
-                    ))
+                    )
                 }
                 log("plugin.profile.import", "Imported profile \(profile.name) plugin=\(profile.pluginID.rawValue) device=\(profile.deviceModel ?? "unknown") assignments=\(profile.assignments.count)")
             }
             let profileName = profiles.first(where: { $0.name == "Default" })?.name
                 ?? profiles.first?.name
+            for name in Set(profiles.map(\.name)) {
+                upsertImportedEditorProfile(
+                    name: name,
+                    groups: importedProfiles.filter { $0.name == name }
+                )
+            }
             if let profileName {
                 applyImportedProfile(named: profileName)
             }
+
             persistAssignments()
             lastEvent = "Imported \(profiles.count) profile/plugin mappings; applied \(profileName ?? "none")"
         } catch {
@@ -378,6 +387,34 @@ final class DecksmithAppModel: ObservableObject {
             log("plugin.profile.import.error", "\(error)")
         }
 
+    }
+
+    private func mergeImportedPluginAction(
+        pluginID: PluginID,
+        pluginName: String?,
+        action: PluginActionDefinition,
+        sourcePath: String
+    ) {
+        guard let index = plugins.firstIndex(where: { $0.id == pluginID }) else {
+            plugins.append(PluginPackage(
+                manifest: PluginManifest(
+                    id: pluginID,
+                    name: pluginName ?? pluginID.rawValue,
+                    description: "Imported from the existing Stream Deck profile"
+                ),
+                actions: [action],
+                sourcePath: sourcePath
+            ))
+            return
+        }
+        let package = plugins[index]
+        guard !package.actions.contains(where: { $0.id == action.id }) else { return }
+        plugins[index] = PluginPackage(
+            manifest: package.manifest,
+            actions: (package.actions + [action]).sorted { $0.name < $1.name },
+            sourcePath: package.sourcePath,
+            executablePath: package.executablePath
+        )
     }
 
     var importedProfileNames: [String] {
@@ -390,22 +427,11 @@ final class DecksmithAppModel: ObservableObject {
             lastEvent = "Profile \(name) is not available"
             return
         }
-        assignments.removeAll()
-        for profile in profileGroups {
-            for assignment in profile.assignments {
-                let surfaceID = surfaceID(for: assignment)
-                assignments[surfaceID] = PluginAssignment(
-                    surfaceID: surfaceID,
-                    pluginID: assignment.pluginID ?? profile.pluginID,
-                    actionID: assignment.actionID,
-                    displayName: importedDisplayName(assignment.name, profileName: profile.name),
-                    settings: assignment.settings,
-                    imagePath: assignment.imagePath,
-                    stateTitle: assignment.stateTitle
-                )
-            }
-        }
         upsertImportedEditorProfile(name: name, groups: profileGroups)
+        assignments = currentPageAssignments
+        if assignments.isEmpty, let firstPage = profileGroups.first {
+            assignments = assignmentsForImportedProfile(firstPage)
+        }
         activeImportedProfileName = name
         selectedPluginID = profileGroups.first?.pluginID
         selectedActionID = availableActions.first?.id
@@ -417,25 +443,14 @@ final class DecksmithAppModel: ObservableObject {
     }
 
     private func upsertImportedEditorProfile(name: String, groups: [PluginProfile]) {
-        let pages = groups.map { profile in
+        let pages = groups.sorted { $0.pageID < $1.pageID }.map { profile in
             DecksmithEditorPage(
-                id: profile.id,
-                name: profile.name,
-                assignments: profile.assignments.reduce(into: [String: PluginAssignment]()) { result, imported in
-                    let surfaceID = surfaceID(for: imported)
-                    result[surfaceID] = PluginAssignment(
-                        surfaceID: surfaceID,
-                        pluginID: imported.pluginID ?? profile.pluginID,
-                        actionID: imported.actionID,
-                        displayName: importedDisplayName(imported.name, profileName: profile.name),
-                        settings: imported.settings,
-                        imagePath: imported.imagePath,
-                        stateTitle: imported.stateTitle
-                    )
-                }
+                id: profile.pageID,
+                name: profile.pageName,
+                assignments: assignmentsForImportedProfile(profile)
             )
         }
-        let profileID = groups.first?.id ?? UUID().uuidString
+        let profileID = groups.first?.profileID ?? UUID().uuidString
         let replacement = DecksmithEditorProfile(
             id: profileID,
             name: name,
@@ -452,6 +467,21 @@ final class DecksmithAppModel: ObservableObject {
         selectedPageID = replacement.pages.first?.id
         activePage = 0
         persistEditorWorkspace()
+    }
+
+    private func assignmentsForImportedProfile(_ profile: PluginProfile) -> [String: PluginAssignment] {
+        profile.assignments.reduce(into: [String: PluginAssignment]()) { result, imported in
+            let surfaceID = surfaceID(for: imported)
+            result[surfaceID] = PluginAssignment(
+                surfaceID: surfaceID,
+                pluginID: imported.pluginID ?? profile.pluginID,
+                actionID: imported.actionID,
+                displayName: importedDisplayName(imported.name, profileName: profile.name),
+                settings: imported.settings,
+                imagePath: imported.imagePath,
+                stateTitle: imported.stateTitle
+            )
+        }
     }
 
     private func importedDisplayName(_ name: String, profileName: String) -> String {
@@ -833,6 +863,7 @@ final class DecksmithAppModel: ObservableObject {
     }
 
     private func pushAssignmentsToDevice() {
+        refreshRenderedPreviews()
         pushGeneration &+= 1
         guard pushTask == nil else { return }
         pushTask = Task { @MainActor [weak self] in
@@ -887,49 +918,10 @@ final class DecksmithAppModel: ObservableObject {
             )
         }
         revision &+= 1
-        let touchscreenLayers = ((0..<4).map { index -> [RenderLayer] in
-            let surfaceID = "encoder.\(index)"
-            let x = Double(index * 200)
-            if let assignment = assignments[surfaceID] {
-                let feedback = pluginFeedback[surfaceID]
-                var layers: [RenderLayer] = []
-                if let imagePath = feedback?.imagePath ?? assignment.imagePath {
-                    layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
-                } else if assignment.pluginID.rawValue == "com.elgato.volume-controller" {
-                    log(
-                        "device.surface.image.missing",
-                        "surface=\(surfaceID) plugin=\(assignment.pluginID.rawValue) action=\(assignment.actionID)"
-                    )
-                }
-                if let title = displayTitle(for: assignment) {
-                    layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))
-                }
-                if let percentage = percentage(for: assignment, feedback: feedback) {
-                    layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 72, y: 40, width: 116, height: 20))
-                    if supportsProgressBar(assignment) {
-                        layers.append(.progress(value: percentage, x: x + 72, y: 88, width: 116, height: 8))
-                    }
-                }
-                return layers
-            }
-            return []
-        } + (0..<4).map { index -> [RenderLayer] in
-            let surfaceID = "touch.\(index)"
-            guard let assignment = assignments[surfaceID] else { return [] }
-            let x = Double(index * 200)
-            var layers: [RenderLayer] = []
-            if let imagePath = assignment.imagePath {
-                layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
-            }
-            if let title = displayTitle(for: assignment) {
-                layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))
-            }
-            return layers
-        }).flatMap { $0 }
         let touchscreenUpdate = SurfaceUpdate(
             surfaceID: SurfaceID(rawValue: "touch.0"),
             revision: SurfaceRevision(revision),
-            presentation: .composite(layers: touchscreenLayers)
+            presentation: touchscreenPresentation()
         )
         do {
             for update in updates + [touchscreenUpdate] {
@@ -1333,17 +1325,13 @@ final class DecksmithAppModel: ObservableObject {
     }
 
     private func renderSurfacePreview(for surfaceID: String) {
+        refreshRenderedPreviews()
         guard let session else { return }
-        if surfaceID.hasPrefix("touch.") || surfaceID.hasPrefix("encoder.") {
-            pushAssignmentsToDevice()
-            return
-        }
         revision &+= 1
-        let display = assignments[surfaceID]?.displayName ?? "Decksmith"
         let update = SurfaceUpdate(
             surfaceID: SurfaceID(rawValue: surfaceID),
             revision: SurfaceRevision(revision),
-            presentation: .text(title: display, subtitle: assignments[surfaceID] == nil ? nil : "Configured")
+            presentation: devicePresentation(for: surfaceID)
         )
         Task {
             do {
@@ -1351,7 +1339,78 @@ final class DecksmithAppModel: ObservableObject {
             } catch {
                 log("device.surface.error", "Failed to update \(surfaceID): \(error)")
             }
+
         }
+    }
+
+    func refreshRenderedPreviews() {
+        let surfaceIDs = (0..<8).map { "key.\($0)" } + ["touch.0"]
+        let renderer = RasterSurfaceRenderer()
+        for surfaceID in surfaceIDs {
+            revision &+= 1
+            let update = SurfaceUpdate(
+                surfaceID: SurfaceID(rawValue: surfaceID),
+                revision: SurfaceRevision(revision),
+                presentation: devicePresentation(for: surfaceID)
+            )
+            Task { [weak self] in
+                do {
+                    let rendered = try await renderer.render(update)
+                    await MainActor.run {
+                        guard let self, let image = NSImage(data: rendered.pixels) else { return }
+                        self.renderedPreviewImages[surfaceID] = image
+                    }
+                } catch {
+                    await MainActor.run {
+                        self?.log("ui.preview.error", "surface=\(surfaceID) error=\(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+
+    private func devicePresentation(for surfaceID: String) -> SurfacePresentation {
+        if surfaceID == "touch.0" {
+            return touchscreenPresentation()
+        }
+        guard let assignment = assignments[surfaceID] else { return .blank }
+        return presentation(for: assignment, surfaceID: surfaceID)
+    }
+
+    private func touchscreenPresentation() -> SurfacePresentation {
+        let touchscreenLayers = ((0..<4).map { index -> [RenderLayer] in
+            let surfaceID = "encoder.\(index)"
+            let x = Double(index * 200)
+            guard let assignment = assignments[surfaceID] else { return [] }
+            let feedback = pluginFeedback[surfaceID]
+            var layers: [RenderLayer] = []
+            if let imagePath = feedback?.imagePath ?? assignment.imagePath {
+                layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
+            }
+            if let title = displayTitle(for: assignment) {
+                layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))
+            }
+            if let percentage = percentage(for: assignment, feedback: feedback) {
+                layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 72, y: 40, width: 116, height: 20))
+                if supportsProgressBar(assignment) {
+                    layers.append(.progress(value: percentage, x: x + 72, y: 88, width: 116, height: 8))
+                }
+            }
+            return layers
+        } + (0..<4).map { index -> [RenderLayer] in
+            let surfaceID = "touch.\(index)"
+            guard let assignment = assignments[surfaceID] else { return [] }
+            let x = Double(index * 200)
+            var layers: [RenderLayer] = []
+            if let imagePath = assignment.imagePath {
+                layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
+            }
+            if let title = displayTitle(for: assignment) {
+                layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))
+            }
+            return layers
+        }).flatMap { $0 }
+        return .composite(layers: touchscreenLayers)
     }
 
     private func presentation(for assignment: PluginAssignment, surfaceID: String) -> SurfacePresentation {
@@ -1654,6 +1713,7 @@ extension DecksmithAppModel {
        assignments = currentPageAssignments
        selectedPluginID = plugins.first?.id
        selectedActionID = availableActions.first?.id
+       refreshRenderedPreviews()
    }
 
    private func syncCurrentPageFromAssignments() {

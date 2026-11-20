@@ -92,6 +92,7 @@ public struct PluginProfileAssignment: Codable, Sendable, Equatable, Identifiabl
     public let name: String
     public let settings: Data
     public let pluginID: PluginID?
+    public let pluginName: String?
     public let imagePath: String?
     public let stateTitle: String?
 
@@ -102,6 +103,7 @@ public struct PluginProfileAssignment: Codable, Sendable, Equatable, Identifiabl
         name: String,
         settings: Data = Data(),
         pluginID: PluginID? = nil,
+        pluginName: String? = nil,
         imagePath: String? = nil,
         stateTitle: String? = nil
     ) {
@@ -111,6 +113,7 @@ public struct PluginProfileAssignment: Codable, Sendable, Equatable, Identifiabl
         self.name = name
         self.settings = settings
         self.pluginID = pluginID
+        self.pluginName = pluginName
         self.imagePath = imagePath
         self.stateTitle = stateTitle
         self.id = "\(controller):\(position)"
@@ -119,7 +122,10 @@ public struct PluginProfileAssignment: Codable, Sendable, Equatable, Identifiabl
 
 public struct PluginProfile: Codable, Sendable, Equatable, Identifiable {
     public let id: String
+    public let profileID: String
+    public let pageID: String
     public let name: String
+    public let pageName: String
     public let pluginID: PluginID
     public let deviceModel: String?
     public let assignments: [PluginProfileAssignment]
@@ -127,14 +133,20 @@ public struct PluginProfile: Codable, Sendable, Equatable, Identifiable {
 
     public init(
         id: String,
+        profileID: String = "",
+        pageID: String = "",
         name: String,
+        pageName: String = "Main",
         pluginID: PluginID,
         deviceModel: String?,
         assignments: [PluginProfileAssignment],
         sourcePath: String
     ) {
         self.id = id
+        self.profileID = profileID.isEmpty ? id : profileID
+        self.pageID = pageID.isEmpty ? id : pageID
         self.name = name
+        self.pageName = pageName
         self.pluginID = pluginID
         self.deviceModel = deviceModel
         self.assignments = assignments
@@ -225,12 +237,15 @@ public enum StreamDeckPluginImporter {
                 $0.deletingLastPathComponent().deletingLastPathComponent().deletingLastPathComponent() == profileDirectory
             }
             let fallbackPluginID = root["InstalledByPluginUUID"] as? String
-            var grouped: [String: [PluginProfileAssignment]] = [:]
+            var pages: [String: (name: String, assignments: [PluginProfileAssignment])] = [:]
             for pageManifestURL in pageManifests {
                 guard let data = try? Data(contentsOf: pageManifestURL),
                       let page = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                       let controllers = page["Controllers"] as? [[String: Any]]
                 else { continue }
+                let pageID = pageManifestURL.deletingLastPathComponent().lastPathComponent
+                let pageName = page["Name"] as? String ?? pageID
+                pages[pageID] = (pageName, [])
                 for controller in controllers {
                     guard let type = controller["Type"] as? String,
                           let actions = controller["Actions"] as? [String: [String: Any]]
@@ -260,30 +275,50 @@ public enum StreamDeckPluginImporter {
                             stateIndex: stateIndex,
                             fileManager: fileManager
                         )
-                        grouped[pluginID.rawValue, default: []].append(PluginProfileAssignment(
+                        pages[pageID, default: (pageName, [])].assignments.append(PluginProfileAssignment(
                             controller: type,
                             position: position,
                             actionID: actionID,
                             name: name,
                             settings: settings,
                             pluginID: pluginID,
+                            pluginName: plugin?["Name"] as? String,
                             imagePath: imagePath,
                             stateTitle: stateTitle
                         ))
                     }
                 }
             }
-            let profileID = (root["Pages"] as? [String: Any])?["Current"] as? String
+            let profileID = (root["UUID"] as? String)
                 ?? profileDirectory.lastPathComponent
-            for (pluginID, assignments) in grouped {
+            let deviceModel = (root["Device"] as? [String: Any])?["Model"] as? String
+            if pages.isEmpty {
                 imported.append(PluginProfile(
-                    id: "\(profileID):\(pluginID)",
+                    id: "\(profileID):main",
+                    profileID: profileID,
+                    pageID: "main",
                     name: profileName,
-                    pluginID: PluginID(rawValue: pluginID),
-                    deviceModel: (root["Device"] as? [String: Any])?["Model"] as? String,
-                    assignments: assignments,
+                    pageName: "Main",
+                    pluginID: PluginID(rawValue: "com.decksmith.empty"),
+                    deviceModel: deviceModel,
+                    assignments: [],
                     sourcePath: archive.path
                 ))
+            } else {
+                for (pageID, page) in pages {
+                    let pageAssignments = page.assignments
+                    imported.append(PluginProfile(
+                        id: "\(profileID):\(pageID)",
+                        profileID: profileID,
+                        pageID: pageID,
+                        name: profileName,
+                        pageName: page.name,
+                        pluginID: pageAssignments.first?.pluginID ?? PluginID(rawValue: "com.decksmith.empty"),
+                        deviceModel: deviceModel,
+                        assignments: pageAssignments,
+                        sourcePath: archive.path
+                    ))
+                }
             }
         }
         guard !imported.isEmpty else { throw StreamDeckPluginImportError.unsupportedProfile }

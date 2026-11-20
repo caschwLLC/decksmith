@@ -6,16 +6,16 @@ import DecksmithCore
 
 struct ContentView: View {
     @ObservedObject var model: DecksmithAppModel
-    @State private var showBrowser = true
+    @State private var browserVisibility: NavigationSplitViewVisibility = .all
 
     var body: some View {
         NavigationSplitView {
             ProfileSidebar(model: model)
         } detail: {
-            HStack(spacing: 0) {
+            NavigationSplitView(columnVisibility: $browserVisibility) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
-                        EditorHeader(model: model, showBrowser: $showBrowser)
+                        EditorHeader(model: model, browserVisibility: $browserVisibility)
                         PageTabs(model: model)
                         HardwareEditorPreview(model: model)
                         AssignmentEditor(model: model)
@@ -23,13 +23,11 @@ struct ContentView: View {
                     .padding(24)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                if showBrowser {
-                    Divider()
-                    PluginActionBrowser(model: model)
-                        .frame(width: 300)
-                }
+                .navigationTitle(model.currentProfile?.name ?? "Profile")
+            } detail: {
+                PluginActionBrowser(model: model)
             }
-            .background(Color(nsColor: .windowBackgroundColor))
+            .navigationSplitViewStyle(.balanced)
         }
         .frame(minWidth: 1180, minHeight: 760)
     }
@@ -61,11 +59,17 @@ private struct ProfileSidebar: View {
                 HStack {
                     Text("Profiles")
                     Spacer()
-                    Button { model.addProfile() } label: {
-                        Image(systemName: "plus")
+                    HStack(spacing: 4) {
+                        Button { model.addProfile() } label: {
+                            Image(systemName: "plus")
+                        }
+                        Button { model.removeSelectedProfile() } label: {
+                            Image(systemName: "minus")
+                        }
+                        .disabled(model.editorProfiles.count <= 1)
                     }
-                    .buttonStyle(.borderless)
-                    .help("Add profile")
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
                 }
             }
             Section("Workspace") {
@@ -76,17 +80,6 @@ private struct ProfileSidebar: View {
         }
         .listStyle(.sidebar)
         .navigationTitle("Decksmith")
-        .toolbar {
-            ToolbarItem(placement: .automatic) {
-                Button {
-                    model.removeSelectedProfile()
-                } label: {
-                    Image(systemName: "minus")
-                }
-                .disabled(model.editorProfiles.count <= 1)
-                .help("Remove profile")
-            }
-        }
         .onChange(of: model.selectedProfileID) { _, value in
             if let value { model.selectProfile(value) }
         }
@@ -95,7 +88,7 @@ private struct ProfileSidebar: View {
 
 private struct EditorHeader: View {
     @ObservedObject var model: DecksmithAppModel
-    @Binding var showBrowser: Bool
+    @Binding var browserVisibility: NavigationSplitViewVisibility
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
@@ -110,9 +103,9 @@ private struct EditorHeader: View {
             Label(model.connected ? "Connected" : "Disconnected", systemImage: model.connected ? "checkmark.circle.fill" : "circle.slash")
                 .foregroundStyle(model.connected ? .green : .secondary)
             Button {
-                showBrowser.toggle()
+                browserVisibility = browserVisibility == .all ? .detailOnly : .all
             } label: {
-                Label("Actions", systemImage: showBrowser ? "sidebar.right" : "sidebar.right")
+                Label("Actions", systemImage: "sidebar.right")
             }
             .buttonStyle(.bordered)
             Button("Disconnect", action: model.disconnect)
@@ -126,7 +119,7 @@ private struct PageTabs: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            HStack(spacing: 2) {
+            HStack(spacing: 4) {
                 ForEach(Array(model.pages.enumerated()), id: \.offset) { index, page in
                     Button {
                         model.selectPage(index)
@@ -143,15 +136,15 @@ private struct PageTabs: View {
                 }
                 Button { model.addPage() } label: {
                     Image(systemName: "plus")
-                        .frame(width: 28, height: 28)
+                        .frame(minWidth: 34, minHeight: 34)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.bordered)
                 if model.pages.count > 1 {
                     Button { model.removeActivePage() } label: {
                         Image(systemName: "minus")
-                            .frame(width: 28, height: 28)
+                            .frame(minWidth: 34, minHeight: 34)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.bordered)
                 }
             }
             .padding(4)
@@ -180,7 +173,7 @@ private struct HardwareEditorPreview: View {
                     .foregroundStyle(.secondary)
             }
             VStack(spacing: 12) {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 8), count: 8), spacing: 8) {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: 4), spacing: 12) {
                     ForEach(0..<8, id: \.self) { index in
                         EditorSurfaceTile(model: model, surfaceID: "key.\(index)", label: "Key \(index + 1)")
                     }
@@ -188,7 +181,7 @@ private struct HardwareEditorPreview: View {
                 EditorTouchscreen(model: model)
                 HStack(spacing: 10) {
                     ForEach(0..<4, id: \.self) { index in
-                        EditorSurfaceTile(model: model, surfaceID: "encoder.\(index)", label: "Dial \(index + 1)", isDial: true)
+                        EditorDialTile(model: model, index: index)
                     }
                 }
             }
@@ -203,14 +196,62 @@ private struct EditorTouchscreen: View {
     @ObservedObject var model: DecksmithAppModel
 
     var body: some View {
-        HStack(spacing: 2) {
-            ForEach(0..<4, id: \.self) { index in
-                EditorSurfaceTile(model: model, surfaceID: "touch.\(index)", label: "Touch \(index + 1)")
+        Button {
+            model.selectTouchSegment(0)
+        } label: {
+            Group {
+                if let image = model.renderedPreviewImages["touch.0"] {
+                    Image(nsImage: image)
+                        .resizable()
+                        .interpolation(.high)
+                        .aspectRatio(8 / 1, contentMode: .fit)
+                } else {
+                    Rectangle()
+                        .fill(Color.black)
+                        .aspectRatio(8 / 1, contentMode: .fit)
+                        .overlay(Text("Touchscreen preview").foregroundStyle(.secondary))
+                }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(model.selectedSurfaceID == "touch.0" ? Color.accentColor : Color.white.opacity(0.12), lineWidth: model.selectedSurfaceID == "touch.0" ? 2 : 1)
+            )
         }
-        .padding(4)
-        .background(Color.black.opacity(0.34))
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .buttonStyle(.plain)
+    }
+}
+
+private struct EditorDialTile: View {
+    @ObservedObject var model: DecksmithAppModel
+    let index: Int
+
+    var body: some View {
+        let surfaceID = "encoder.\(index)"
+        Button {
+            model.selectEncoder(index)
+        } label: {
+            ZStack {
+                Circle()
+                    .fill(Color.black)
+                if let assignment = model.assignment(for: surfaceID),
+                   let imagePath = assignment.imagePath,
+                   let image = NSImage(contentsOfFile: imagePath) {
+                    Image(nsImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(14)
+                } else {
+                    Image(systemName: model.assignment(for: surfaceID) == nil ? "dial.medium" : "square.grid.2x2")
+                        .font(.title2)
+                        .foregroundStyle(.secondary)
+                }
+                Circle()
+                    .stroke(model.selectedSurfaceID == surfaceID ? Color.accentColor : Color.white.opacity(0.16), lineWidth: model.selectedSurfaceID == surfaceID ? 2 : 1)
+            }
+            .aspectRatio(1, contentMode: .fit)
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -386,6 +427,7 @@ private struct PluginActionBrowser: View {
         }
         .padding(16)
         .background(Color(nsColor: .controlBackgroundColor).opacity(0.82))
+        .navigationTitle("Actions")
     }
 }
 
