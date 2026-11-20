@@ -74,7 +74,8 @@ private protocol SchemaMigrationBox<Value>: Sendable {
     func migrate(_ value: Value) throws -> Value
 }
 
-private struct AnySchemaMigration<Value: Codable & Sendable, M: SchemaMigration>: SchemaMigrationBox<Value> where M.Value == Value {
+private struct AnySchemaMigration<StoredValue: Codable & Sendable, M: SchemaMigration>: SchemaMigrationBox where M.Value == StoredValue {
+    typealias Value = StoredValue
     let migration: M
     var toVersion: Int { migration.toVersion }
     func migrate(_ value: Value) throws -> Value { try migration.migrate(value) }
