@@ -436,7 +436,7 @@ private struct PluginActionBrowser: View {
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 8) {
-                        ForEach(model.plugins) { plugin in
+                        ForEach(model.locallyInstalledPlugins) { plugin in
                             let actions = model.compatibleActions(for: plugin, surfaceID: control == "encoder" ? "encoder.0" : "key.0")
                                 .filter { query.isEmpty || $0.name.localizedCaseInsensitiveContains(query) || plugin.manifest.name.localizedCaseInsensitiveContains(query) }
                             if !actions.isEmpty {

@@ -94,6 +94,7 @@ final class DecksmithAppModel: ObservableObject {
     private var transport: (any HIDTransport)?
     private var session: DeviceSession?
     private var pluginPorts: [PluginID: UInt16] = [:]
+    private var locallyInstalledPluginIDs: Set<PluginID> = []
     private let pluginPortBase = UInt16.random(in: 30000...40000)
     private var startedPlugins: Set<PluginID> = []
     private var pluginMessageTasks: [PluginID: Task<Void, Never>] = [:]
@@ -195,6 +196,7 @@ final class DecksmithAppModel: ObservableObject {
                 for package in installed where !self.plugins.contains(where: { $0.id == package.id }) {
                     self.plugins.append(package)
                 }
+                self.locallyInstalledPluginIDs.formUnion(installed.map(\.id))
                 if self.selectedPluginID == nil {
                     self.selectedPluginID = self.plugins.first?.id
                     self.selectedActionID = self.plugins.first?.actions.first?.id
@@ -239,6 +241,7 @@ final class DecksmithAppModel: ObservableObject {
             if !plugins.contains(where: { $0.id == package.id }) {
                 plugins.append(package)
             }
+            locallyInstalledPluginIDs.insert(package.id)
             selectedPluginID = package.id
             selectedActionID = package.actions.first(where: { $0.supportedControls.contains(controlKind(for: selectedSurfaceID)) })?.id
             lastEvent = "Imported \(package.manifest.name)"
@@ -581,6 +584,12 @@ final class DecksmithAppModel: ObservableObject {
 
     var selectedPlugin: PluginPackage? {
         plugins.first(where: { $0.id == selectedPluginID })
+    }
+
+    var locallyInstalledPlugins: [PluginPackage] {
+        plugins
+            .filter { locallyInstalledPluginIDs.contains($0.id) }
+            .sorted { $0.manifest.name.localizedCaseInsensitiveCompare($1.manifest.name) == .orderedAscending }
     }
 
     var selectedAction: PluginActionDefinition? {
