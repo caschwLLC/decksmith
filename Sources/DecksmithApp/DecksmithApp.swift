@@ -1394,15 +1394,17 @@ final class DecksmithAppModel: ObservableObject {
             let feedback = pluginFeedback[surfaceID]
             var layers: [RenderLayer] = []
             if let imagePath = feedback?.imagePath ?? assignment.imagePath {
-                layers.append(.image(assetID: imagePath, x: x + 14, y: 34, width: 48, height: 42))
+                layers.append(.image(assetID: imagePath, x: x + 16, y: 30, width: 40, height: 36))
+            } else {
+                layers.append(.unavailable(x: x + 16, y: 30, width: 40, height: 36))
             }
             if let title = displayTitle(for: assignment) {
-                layers.append(.text(value: title, x: x + 12, y: 8, width: 112, height: 16))
+                layers.append(.text(value: title, x: x + 10, y: 5, width: 120, height: 18))
             }
             if let percentage = percentage(for: assignment, feedback: feedback) {
-                layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 136, y: 8, width: 52, height: 20))
+                layers.append(.text(value: "\(Int((percentage * 100).rounded()))%", x: x + 130, y: 4, width: 58, height: 24))
                 if supportsProgressBar(assignment) {
-                    layers.append(.progress(value: percentage, x: x + 84, y: 78, width: 104, height: 8))
+                    layers.append(.progress(value: percentage, x: x + 48, y: 80, width: 140, height: 8))
                 }
             }
             return layers
@@ -1413,6 +1415,8 @@ final class DecksmithAppModel: ObservableObject {
             var layers: [RenderLayer] = []
             if let imagePath = assignment.imagePath {
                 layers.append(.image(assetID: imagePath, x: x + 12, y: 28, width: 52, height: 52))
+            } else {
+                layers.append(.unavailable(x: x + 12, y: 28, width: 52, height: 52))
             }
             if let title = displayTitle(for: assignment) {
                 layers.append(.text(value: title, x: x + 72, y: 66, width: 116, height: 18))

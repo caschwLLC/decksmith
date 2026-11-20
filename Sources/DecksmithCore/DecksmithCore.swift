@@ -167,6 +167,7 @@ public enum RenderLayer: Codable, Sendable, Equatable {
     case image(assetID: String, x: Double, y: Double, width: Double, height: Double)
     case text(value: String, x: Double, y: Double, width: Double, height: Double)
     case progress(value: Double, x: Double, y: Double, width: Double, height: Double)
+    case unavailable(x: Double, y: Double, width: Double, height: Double)
 }
 
 public struct SurfaceUpdate: Codable, Sendable, Equatable {

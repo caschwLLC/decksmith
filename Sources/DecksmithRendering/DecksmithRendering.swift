@@ -304,9 +304,14 @@ public struct RasterSurfaceRenderer: SurfaceRenderer {
                             ),
                             in: context
                         )
-                    } else if case .text(let value, let x, let y, _, _) = layer {
-                        let fontSize = min(16, max(11, CGFloat(size.height) / 7))
-                        drawText(value, at: CGPoint(x: x, y: CGFloat(size.height) - y - 18), fontSize: fontSize, in: context)
+                    } else if case .text(let value, let x, let y, let width, let height) = layer {
+                        let rect = CGRect(
+                            x: x,
+                            y: CGFloat(size.height) - y - height,
+                            width: width,
+                            height: height
+                        )
+                        drawFittedText(value, in: rect, alignment: x > Double(size.width) / 2 ? .right : .left, in: context)
                     } else if case .progress(let value, let x, let y, let width, let height) = layer {
                         drawProgress(
                             value: value,
@@ -317,6 +322,16 @@ public struct RasterSurfaceRenderer: SurfaceRenderer {
                                 height: height
                             ),
                             in: context
+                        )
+                    } else if case .unavailable(let x, let y, let width, let height) = layer {
+                        drawUnavailableGlyph(
+                            in: CGRect(
+                                x: x,
+                                y: CGFloat(size.height) - y - height,
+                                width: width,
+                                height: height
+                            ),
+                            context: context
                         )
                     }
                 }
@@ -334,6 +349,67 @@ public struct RasterSurfaceRenderer: SurfaceRenderer {
         context.saveGState()
         context.textPosition = point
         CTLineDraw(line, context)
+        context.restoreGState()
+    }
+
+    private func drawFittedText(
+        _ value: String,
+        in rect: CGRect,
+        alignment: CTTextAlignment,
+        in context: CGContext
+    ) {
+        let fontSize = min(18, max(10, rect.height * 0.82))
+        let font = CTFontCreateWithName("SF Pro Display" as CFString, fontSize, nil)
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key(kCTFontAttributeName as String): font,
+            NSAttributedString.Key(kCTForegroundColorAttributeName as String): CGColor(gray: 1, alpha: 0.95)
+        ]
+        let line = CTLineCreateWithAttributedString(NSAttributedString(string: value, attributes: attributes))
+        let bounds = CTLineGetBoundsWithOptions(line, [])
+        let availableWidth = max(0, rect.width)
+        let scale = bounds.width > availableWidth && bounds.width > 0 ? availableWidth / bounds.width : 1
+        let drawWidth = bounds.width * scale
+        let x: CGFloat = alignment == .right ? rect.maxX - drawWidth : rect.minX
+        let y = rect.minY + max(0, (rect.height - fontSize) / 2)
+
+        context.saveGState()
+        context.addRect(rect)
+        context.clip()
+        if scale < 1 {
+            context.translateBy(x: x, y: y)
+            context.scaleBy(x: scale, y: scale)
+            context.textPosition = .zero
+        } else {
+            context.textPosition = CGPoint(x: x, y: y)
+        }
+        CTLineDraw(line, context)
+        context.restoreGState()
+    }
+
+    private func drawUnavailableGlyph(in rect: CGRect, context: CGContext) {
+        context.saveGState()
+        let iconRect = rect.insetBy(dx: rect.width * 0.18, dy: rect.height * 0.16)
+        let body = CGRect(
+            x: iconRect.minX + iconRect.width * 0.18,
+            y: iconRect.minY + iconRect.height * 0.18,
+            width: iconRect.width * 0.48,
+            height: iconRect.height * 0.64
+        )
+        context.setFillColor(CGColor(gray: 0.52, alpha: 0.72))
+        context.fill(body)
+        let cone = CGMutablePath()
+        cone.move(to: CGPoint(x: body.maxX, y: body.minY))
+        cone.addLine(to: CGPoint(x: iconRect.maxX, y: iconRect.minY))
+        cone.addLine(to: CGPoint(x: iconRect.maxX, y: iconRect.maxY))
+        cone.addLine(to: CGPoint(x: body.maxX, y: body.maxY))
+        cone.closeSubpath()
+        context.addPath(cone)
+        context.fillPath()
+        context.setStrokeColor(CGColor(gray: 0.68, alpha: 0.72))
+        context.setLineWidth(max(1, rect.width * 0.06))
+        context.move(to: CGPoint(x: iconRect.minX, y: iconRect.minY))
+        context.addLine(to: CGPoint(x: iconRect.maxX, y: iconRect.maxY))
+        context.strokePath()
         context.restoreGState()
     }
 
