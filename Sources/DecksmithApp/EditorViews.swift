@@ -6,16 +6,16 @@ import DecksmithCore
 
 struct ContentView: View {
     @ObservedObject var model: DecksmithAppModel
-    @State private var browserVisibility: NavigationSplitViewVisibility = .all
+    @State private var showBrowser = true
 
     var body: some View {
         NavigationSplitView {
             ProfileSidebar(model: model)
         } detail: {
-            NavigationSplitView(columnVisibility: $browserVisibility) {
+            HStack(spacing: 0) {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 18) {
-                        EditorHeader(model: model, browserVisibility: $browserVisibility)
+                        EditorHeader(model: model, showBrowser: $showBrowser)
                         PageTabs(model: model)
                         HardwareEditorPreview(model: model)
                         AssignmentEditor(model: model)
@@ -23,11 +23,13 @@ struct ContentView: View {
                     .padding(24)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .navigationTitle(model.currentProfile?.name ?? "Profile")
-            } detail: {
-                PluginActionBrowser(model: model)
+                if showBrowser {
+                    Divider()
+                    PluginActionBrowser(model: model, showBrowser: $showBrowser)
+                        .frame(width: 320)
+                }
             }
-            .navigationSplitViewStyle(.balanced)
+            .background(Color(nsColor: .windowBackgroundColor))
         }
         .frame(minWidth: 1180, minHeight: 760)
     }
@@ -88,7 +90,7 @@ private struct ProfileSidebar: View {
 
 private struct EditorHeader: View {
     @ObservedObject var model: DecksmithAppModel
-    @Binding var browserVisibility: NavigationSplitViewVisibility
+    @Binding var showBrowser: Bool
 
     var body: some View {
         HStack(alignment: .center, spacing: 14) {
@@ -103,7 +105,7 @@ private struct EditorHeader: View {
             Label(model.connected ? "Connected" : "Disconnected", systemImage: model.connected ? "checkmark.circle.fill" : "circle.slash")
                 .foregroundStyle(model.connected ? .green : .secondary)
             Button {
-                browserVisibility = browserVisibility == .all ? .detailOnly : .all
+                showBrowser.toggle()
             } label: {
                 Label("Actions", systemImage: "sidebar.right")
             }
@@ -373,6 +375,7 @@ private struct AssignmentEditor: View {
 
 private struct PluginActionBrowser: View {
     @ObservedObject var model: DecksmithAppModel
+    @Binding var showBrowser: Bool
     @State private var query = ""
     @State private var tab = "Keys"
     @State private var expanded: Set<PluginID> = []
@@ -383,8 +386,19 @@ private struct PluginActionBrowser: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Installed actions")
-                .font(.headline)
+            HStack {
+                Text("Installed actions")
+                    .font(.headline)
+                Spacer()
+                Button {
+                    showBrowser = false
+                } label: {
+                    Image(systemName: "sidebar.right")
+                        .frame(minWidth: 30, minHeight: 30)
+                }
+                .buttonStyle(.borderless)
+                .help("Hide actions sidebar")
+            }
             TextField("Search actions", text: $query)
                 .textFieldStyle(.roundedBorder)
             Picker("Action type", selection: $tab) {
