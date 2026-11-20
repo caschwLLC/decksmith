@@ -27,11 +27,35 @@ struct ContentView: View {
                     Divider()
                     PluginActionBrowser(model: model, showBrowser: $showBrowser)
                         .frame(width: 320)
+                } else {
+                    RightSidebarRail(showBrowser: $showBrowser)
                 }
             }
             .background(Color(nsColor: .windowBackgroundColor))
         }
         .frame(minWidth: 1180, minHeight: 760)
+    }
+}
+
+private struct RightSidebarRail: View {
+    @Binding var showBrowser: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            Button {
+                showBrowser = true
+            } label: {
+                Image(systemName: "sidebar.right")
+                    .frame(width: 32, height: 32)
+            }
+            .buttonStyle(.borderless)
+            .help("Show actions sidebar")
+            Spacer()
+        }
+        .padding(.top, 8)
+        .frame(maxHeight: .infinity, alignment: .top)
+        .frame(width: 40)
+        .background(Color(nsColor: .controlBackgroundColor))
     }
 }
 
@@ -440,7 +464,7 @@ private struct PluginActionBrowser: View {
             Spacer()
         }
         .padding(16)
-        .background(Color(nsColor: .controlBackgroundColor).opacity(0.82))
+        .background(Color(nsColor: .controlBackgroundColor))
         .navigationTitle("Actions")
     }
 }
