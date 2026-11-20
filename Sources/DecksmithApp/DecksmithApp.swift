@@ -1946,42 +1946,53 @@ private struct DevicePreview: View {
     }
 
     private var keyPreview: some View {
-        LazyVGrid(
-            columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4),
-            spacing: 10
-        ) {
+        LazyVGrid(columns: keyColumns, spacing: 10) {
             ForEach(0..<8, id: \.self) { index in
-                Button {
-                    model.selectControl(index)
-                } label: {
-                    VStack(spacing: 6) {
-                        Image(systemName: model.selectedSurfaceID == "key.\(index)" ? "square.fill" : "square")
-                        Text("Key \(index + 1)")
-                            .font(.caption.weight(.medium))
-                        Text(model.assignedActionFor("key.\(index)") ?? "Unassigned")
-                            .font(.caption2)
-                            .lineLimit(1)
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 72)
-                    .background(
-                        model.selectedSurfaceID == "key.\(index)"
-                            ? Color.accentColor.opacity(0.18)
-                            : Color(nsColor: .controlBackgroundColor)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(
-                                model.selectedSurfaceID == "key.\(index)"
-                                    ? Color.accentColor
-                                    : Color.secondary.opacity(0.18),
-                                lineWidth: model.selectedSurfaceID == "key.\(index)" ? 2 : 1
-                            )
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                }
-                .buttonStyle(.plain)
+                LegacyKeyTile(model: model, index: index)
             }
         }
+    }
+
+    private var keyColumns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: 10), count: 4)
+    }
+}
+
+private struct LegacyKeyTile: View {
+    @ObservedObject var model: DecksmithAppModel
+    let index: Int
+
+    var body: some View {
+        let surfaceID = "key.\(index)"
+        Button {
+            model.selectControl(index)
+        } label: {
+            VStack(spacing: 6) {
+                Image(systemName: model.selectedSurfaceID == surfaceID ? "square.fill" : "square")
+                Text("Key \(index + 1)")
+                    .font(.caption.weight(.medium))
+                Text(model.assignedActionFor(surfaceID) ?? "Unassigned")
+                    .font(.caption2)
+                    .lineLimit(1)
+            }
+            .frame(maxWidth: .infinity, minHeight: 72)
+            .background(
+                model.selectedSurfaceID == surfaceID
+                    ? Color.accentColor.opacity(0.18)
+                    : Color(nsColor: .controlBackgroundColor)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(
+                        model.selectedSurfaceID == surfaceID
+                            ? Color.accentColor
+                            : Color.secondary.opacity(0.18),
+                        lineWidth: model.selectedSurfaceID == surfaceID ? 2 : 1
+                    )
+            )
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+        }
+        .buttonStyle(.plain)
     }
 }
 
