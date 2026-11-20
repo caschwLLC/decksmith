@@ -5,6 +5,6 @@ jobs:
   hardware:
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Explain hardware runner requirement
         run: echo "Run opt-in hardware tests only on a trusted runner with the intended device attached."

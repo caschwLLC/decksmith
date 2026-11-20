@@ -1875,76 +1875,112 @@ private struct DevicePreview: View {
                     .foregroundStyle(.secondary)
             }
             VStack(spacing: 14) {
-                HStack(spacing: 8) {
-                    ForEach(0..<4, id: \.self) { index in
-                        Button {
-                            model.selectTouchSegment(index)
-                        } label: {
-                            VStack(spacing: 4) {
-                                Text("Touch \(index + 1)")
-                                    .font(.caption.weight(.semibold))
-                                Text(model.assignedActionFor("touch.\(index)") ?? "Display")
-                                    .font(.caption2)
-                                    .lineLimit(1)
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 52)
-                            .background(model.selectedSurfaceID == "touch.\(index)" ? Color.accentColor.opacity(0.22) : Color.black.opacity(0.25))
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 8))
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                HStack(spacing: 12) {
-                    ForEach(0..<4, id: \.self) { index in
-                        Button {
-                            model.selectEncoder(index)
-                        } label: {
-                            VStack(spacing: 6) {
-                                Circle()
-                                    .strokeBorder(model.selectedSurfaceID == "encoder.\(index)" ? Color.accentColor : Color.white.opacity(0.35), lineWidth: 3)
-                                    .background(Circle().fill(Color.black.opacity(0.35)))
-                                    .overlay {
-                                        Text("\(index + 1)")
-                                            .font(.caption.weight(.bold))
-                                            .foregroundStyle(.white)
-                                    }
-                                    .frame(width: 42, height: 42)
-                                Text(model.assignedActionFor("encoder.\(index)") ?? "Unassigned")
-                                    .font(.caption2)
-                                    .lineLimit(1)
-                                    .foregroundStyle(.secondary)
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 74)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 10) {
-                    ForEach(0..<8, id: \.self) { index in
-                        Button {
-                            model.selectControl(index)
-                        } label: {
-                            VStack(spacing: 6) {
-                                Image(systemName: model.selectedSurfaceID == "key.\(index)" ? "square.fill" : "square")
-                                Text("Key \(index + 1)")
-                                    .font(.caption.weight(.medium))
-                                Text(model.assignedActionFor("key.\(index)") ?? "Unassigned")
-                                    .font(.caption2)
-                                    .lineLimit(1)
-                            }
-                            .frame(maxWidth: .infinity, minHeight: 72)
-                            .background(model.selectedSurfaceID == "key.\(index)" ? Color.accentColor.opacity(0.18) : Color(nsColor: .controlBackgroundColor))
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(model.selectedSurfaceID == "key.\(index)" ? Color.accentColor : Color.secondary.opacity(0.18), lineWidth: model.selectedSurfaceID == "key.\(index)" ? 2 : 1))
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
+                touchPreview
+                encoderPreview
+                keyPreview
             }
             .padding(16)
             .background(Color(nsColor: .controlBackgroundColor))
             .clipShape(RoundedRectangle(cornerRadius: 16))
+        }
+    }
+
+    private var touchPreview: some View {
+        HStack(spacing: 8) {
+            ForEach(0..<4, id: \.self) { index in
+                Button {
+                    model.selectTouchSegment(index)
+                } label: {
+                    VStack(spacing: 4) {
+                        Text("Touch \(index + 1)")
+                            .font(.caption.weight(.semibold))
+                        Text(model.assignedActionFor("touch.\(index)") ?? "Display")
+                            .font(.caption2)
+                            .lineLimit(1)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 52)
+                    .background(
+                        model.selectedSurfaceID == "touch.\(index)"
+                            ? Color.accentColor.opacity(0.22)
+                            : Color.black.opacity(0.25)
+                    )
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var encoderPreview: some View {
+        HStack(spacing: 12) {
+            ForEach(0..<4, id: \.self) { index in
+                Button {
+                    model.selectEncoder(index)
+                } label: {
+                    VStack(spacing: 6) {
+                        Circle()
+                            .strokeBorder(
+                                model.selectedSurfaceID == "encoder.\(index)"
+                                    ? Color.accentColor
+                                    : Color.white.opacity(0.35),
+                                lineWidth: 3
+                            )
+                            .background(Circle().fill(Color.black.opacity(0.35)))
+                            .overlay {
+                                Text("\(index + 1)")
+                                    .font(.caption.weight(.bold))
+                                    .foregroundStyle(.white)
+                            }
+                            .frame(width: 42, height: 42)
+                        Text(model.assignedActionFor("encoder.\(index)") ?? "Unassigned")
+                            .font(.caption2)
+                            .lineLimit(1)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 74)
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var keyPreview: some View {
+        LazyVGrid(
+            columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4),
+            spacing: 10
+        ) {
+            ForEach(0..<8, id: \.self) { index in
+                Button {
+                    model.selectControl(index)
+                } label: {
+                    VStack(spacing: 6) {
+                        Image(systemName: model.selectedSurfaceID == "key.\(index)" ? "square.fill" : "square")
+                        Text("Key \(index + 1)")
+                            .font(.caption.weight(.medium))
+                        Text(model.assignedActionFor("key.\(index)") ?? "Unassigned")
+                            .font(.caption2)
+                            .lineLimit(1)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 72)
+                    .background(
+                        model.selectedSurfaceID == "key.\(index)"
+                            ? Color.accentColor.opacity(0.18)
+                            : Color(nsColor: .controlBackgroundColor)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(
+                                model.selectedSurfaceID == "key.\(index)"
+                                    ? Color.accentColor
+                                    : Color.secondary.opacity(0.18),
+                                lineWidth: model.selectedSurfaceID == "key.\(index)" ? 2 : 1
+                            )
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .buttonStyle(.plain)
+            }
         }
     }
 }
